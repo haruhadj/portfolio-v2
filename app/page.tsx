@@ -1,65 +1,465 @@
-import Image from "next/image";
+import CountUp from "./count-up";
+import CustomCursor from "./custom-cursor";
+import ParticleHero from "./particle-hero";
+import Reveal from "./reveal";
+import ScrambleText from "./scramble-text";
+import ScrollProgress from "./scroll-progress";
+import SpotlightCard from "./spotlight-card";
+import TechIcon from "./tech-icon";
+import ThemeToggle from "./theme-toggle";
+import TiltCard from "./tilt-card";
+import TypedPrompt from "./typed-prompt";
+import { SiGithub } from "react-icons/si";
+
+const GITHUB = "https://github.com/haruhadj";
+const EMAIL = "michaelfernandezskie@gmail.com";
+
+const deployments = [
+  {
+    name: "skillforge",
+    summary:
+      "A web-based educational game library — my learning games collected under one roof, with shared scoring and progression.",
+    stack: ["Next.js", "TypeScript"],
+    live: "https://skillforge.haruhadj.org/",
+    repo: `${GITHUB}/skillforge`,
+  },
+  {
+    name: "secure-qr-attendance",
+    summary:
+      "QR-code attendance system built for real classrooms — secure check-ins without the roll call.",
+    stack: ["Next.js", "TypeScript"],
+    live: "https://secure-qr-attendance.vercel.app",
+    repo: `${GITHUB}/secure-qr-attendance`,
+  },
+  {
+    name: "payroll-system",
+    summary:
+      "Payroll management system — employee records, computations, and payslips handled end to end.",
+    stack: ["TypeScript"],
+    live: "https://payroll-system-fawn.vercel.app",
+    repo: `${GITHUB}/payroll-system`,
+  },
+] as const;
+
+const processes = [
+  {
+    name: "grandmaster-chess",
+    summary: "Responsive chess with single-player AI and real-time multiplayer via WebSockets",
+    lang: "TS",
+  },
+  {
+    name: "geomaster",
+    summary: "Geography learning game — flags, capitals, competitive modes, real-time scoring",
+    lang: "TS",
+  },
+  {
+    name: "tictactoe",
+    summary: "Tic Tac Toe with AI, local PVP, and online PVP via Socket.IO",
+    lang: "JS",
+  },
+  {
+    name: "gomoku",
+    summary: "Five-in-a-row strategy board game",
+    lang: "TS",
+  },
+  {
+    name: "fill-in-the-blank-relay",
+    summary: "Word game with relay timers, combo streaks, and progressive difficulty",
+    lang: "TS",
+  },
+  {
+    name: "rss2mail",
+    summary: "RSS feed monitor that ships new items via Gmail or Messenger — WebUI, Docker-ready",
+    lang: "PY",
+  },
+  {
+    name: "core-dsa",
+    summary: "Data structures & algorithms, implemented from scratch in TypeScript",
+    lang: "TS",
+  },
+] as const;
+
+const specs = [
+  { label: "frontend", items: ["Next.js", "React", "Tailwind CSS"] },
+  { label: "backend", items: ["Hono", "TypeScript", "Zod", "better-auth"] },
+  { label: "database", items: ["PostgreSQL", "Drizzle ORM"] },
+  { label: "deploy", items: ["Vercel", "Cloudflare", "Docker", "CI/CD"] },
+  { label: "workflow", items: ["Claude Code", "agentic pipelines", "local LLM infra"] },
+  { label: "learning", items: ["React Native", "Python"] },
+] as const;
+
+const stream = [
+  "typescript",
+  "next.js",
+  "react",
+  "hono",
+  "drizzle",
+  "postgresql",
+  "zod",
+  "better-auth",
+  "tailwind",
+  "vercel",
+  "cloudflare",
+  "docker",
+  "claude code",
+] as const;
+
+const mantra = ["build", "tune", "ship"] as const;
+
+function AmbientBackground() {
+  return (
+    <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 bg-grid opacity-25" />
+      <div className="glow-blob absolute -top-40 left-1/4 size-[36rem] rounded-full bg-accent/10 blur-3xl" />
+      <div
+        className="glow-blob absolute top-1/2 -right-40 size-[30rem] rounded-full bg-ember/5 blur-3xl"
+        style={{ animationDelay: "-11s" }}
+      />
+      <div className="scanline" />
+    </div>
+  );
+}
+
+function SectionHeader({
+  id,
+  eyebrow,
+  title,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+}) {
+  return (
+    <Reveal>
+      <p className="font-mono text-xs sm:text-sm text-accent">
+        <span className="text-muted">──</span> {eyebrow}
+      </p>
+      <h2
+        id={id}
+        className="mt-2 scroll-mt-28 font-mono text-4xl sm:text-6xl font-bold uppercase tracking-tighter text-foreground"
+      >
+        {title}
+      </h2>
+    </Reveal>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="flex-1 w-full">
+      <ScrollProgress />
+      <CustomCursor />
+      <AmbientBackground />
+      <div aria-hidden className="vignette" />
+      <div aria-hidden className="noise" />
+
+      {/* status bar */}
+      <header className="fixed inset-x-0 top-0 z-20 border-b border-border-line/60 bg-background/60 backdrop-blur-md">
+        <nav
+          className="mx-auto flex max-w-6xl items-center gap-3 sm:gap-4 px-5 py-3 font-mono text-xs sm:px-8 sm:text-sm"
+          aria-label="Main"
+        >
+          <span className="text-accent">haruhadj</span>
+          <span className="hidden sm:inline text-muted">v2026.07</span>
+          <span className="flex-1" />
+          <a href="#deployments" className="text-muted hover:text-foreground transition-colors">
+            /projects
+          </a>
+          <a href="#stack" className="text-muted hover:text-foreground transition-colors">
+            /stack
+          </a>
+          <a href="#contact" className="text-muted hover:text-foreground transition-colors">
+            /contact
+          </a>
+          <a
+            href={GITHUB}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub profile"
+            className="text-muted hover:text-accent transition-colors"
+          >
+            <SiGithub className="size-4 sm:hidden" aria-hidden />
+            <span className="hidden sm:inline">github ↗</span>
+          </a>
+          <ThemeToggle />
+        </nav>
+      </header>
+
+      {/* hero — full-viewport particle field */}
+      <section className="relative h-[100svh]">
+        <h1 className="sr-only">haruhadj — full-stack developer</h1>
+        <ParticleHero className="absolute inset-0 size-full" />
+
+        <div className="pointer-events-none absolute inset-x-0 top-[16%] flex justify-center px-5">
+          <div className="animate-fade-up">
+            <TypedPrompt />
+          </div>
+        </div>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-[14%] flex justify-center px-5">
+          <p className="animate-fade-up max-w-xl text-center text-base sm:text-lg text-muted leading-relaxed [animation-delay:500ms]">
+            Full-stack developer building{" "}
+            <span className="text-foreground">type-safe web apps</span> and{" "}
+            <span className="text-foreground">tuned systems</span> — from schema
+            to silicon, with agentic AI in the loop.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
+          <p className="scroll-hint font-mono text-xs text-muted">scroll ↓</p>
         </div>
+      </section>
+
+      <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+        {/* readout strip */}
+        <Reveal>
+          <dl className="grid grid-cols-2 sm:grid-cols-4 border border-border-line divide-x divide-y sm:divide-y-0 divide-border-line font-mono bg-panel-2/60 backdrop-blur-sm">
+            <div className="px-5 py-5">
+              <dt className="text-[11px] uppercase tracking-widest text-muted">public repos</dt>
+              <dd className="mt-2 text-3xl sm:text-4xl text-foreground">
+                <CountUp value={60} />
+              </dd>
+            </div>
+            <div className="px-5 py-5">
+              <dt className="text-[11px] uppercase tracking-widest text-muted">games shipped</dt>
+              <dd className="mt-2 text-3xl sm:text-4xl text-foreground">
+                <CountUp value={20} suffix="+" />
+              </dd>
+            </div>
+            <div className="px-5 py-5">
+              <dt className="text-[11px] uppercase tracking-widest text-muted">top language</dt>
+              <dd className="mt-2 text-3xl sm:text-4xl text-accent">TS</dd>
+            </div>
+            <div className="px-5 py-5">
+              <dt className="text-[11px] uppercase tracking-widest text-muted">status</dt>
+              <dd className="mt-2 text-3xl sm:text-4xl text-foreground flex items-center gap-3">
+                <span className="pulse-dot inline-block size-2.5 rounded-full bg-ok" aria-hidden />
+                <span className="text-xl sm:text-2xl">building</span>
+              </dd>
+            </div>
+          </dl>
+        </Reveal>
+
+        {/* stack stream */}
+        <Reveal className="mx-[calc(50%-50vw)]">
+          <div className="marquee mt-14 overflow-hidden border-y border-border-line py-3">
+            <div className="marquee-track flex items-center gap-10">
+              {[...stream, ...stream].map((item, i) => (
+                <span
+                  key={`${item}-${i}`}
+                  aria-hidden={i >= stream.length}
+                  className="flex items-center gap-2 font-mono text-xs text-muted whitespace-nowrap"
+                >
+                  <TechIcon name={item} className="size-3.5 text-accent-dim" />
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </Reveal>
+
+        {/* deployments — featured apps */}
+        <section aria-labelledby="deployments" className="pt-24 pb-24">
+          <SectionHeader id="deployments" eyebrow="featured · 3 live" title="deployments" />
+          <div className="mt-10 grid gap-6">
+            {deployments.map((d, i) => (
+              <Reveal key={d.name} delay={i * 100}>
+                <TiltCard>
+                  <SpotlightCard className="group relative border border-border-line bg-panel/80 p-6 sm:p-10 transition-colors duration-300 hover:border-accent-dim">
+                    <span
+                      aria-hidden
+                      className="outline-text pointer-events-none absolute right-4 top-2 font-mono text-7xl sm:text-9xl font-bold select-none opacity-60"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <article className="relative">
+                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono">
+                        <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors">
+                          {d.name}
+                        </h3>
+                        <span className="inline-flex items-center gap-1.5 text-ok text-xs">
+                          <span className="pulse-dot size-1.5 rounded-full bg-ok" aria-hidden />
+                          live
+                        </span>
+                      </div>
+                      <p className="mt-4 max-w-2xl text-sm sm:text-base text-muted leading-relaxed">
+                        {d.summary}
+                      </p>
+                      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-sm">
+                        <a
+                          href={d.live}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1 border border-accent px-4 py-2 text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
+                        >
+                          open{" "}
+                          <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                            ↗
+                          </span>
+                        </a>
+                        <a
+                          href={d.repo}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-muted hover:text-foreground transition-colors"
+                        >
+                          source
+                        </a>
+                        <span className="flex-1" />
+                        {d.stack.map((s) => (
+                          <span
+                            key={s}
+                            className="inline-flex items-center gap-1.5 text-muted text-xs"
+                          >
+                            <TechIcon name={s} className="size-3" />
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </article>
+                  </SpotlightCard>
+                </TiltCard>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* process list — games */}
+        <section aria-labelledby="processes" className="pb-24">
+          <SectionHeader id="processes" eyebrow="games · tools · experiments" title="process list" />
+          <Reveal delay={100}>
+            <ul className="mt-10 border border-border-line divide-y divide-border-line bg-panel-2/40">
+              {processes.map((p) => (
+                <li key={p.name}>
+                  <a
+                    href={`${GITHUB}/${p.name}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 px-5 py-4 transition-all duration-300 hover:bg-accent hover:pl-8"
+                  >
+                    <span className="font-mono text-sm text-foreground shrink-0 sm:w-60 transition-colors duration-300 group-hover:text-background">
+                      ▸ {p.name}
+                    </span>
+                    <span className="flex-1 text-sm text-muted transition-colors duration-300 group-hover:text-background/75">
+                      {p.summary}
+                    </span>
+                    <span className="hidden sm:inline font-mono text-xs text-muted transition-colors duration-300 group-hover:text-background/75">
+                      {p.lang}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="mt-4 font-mono text-xs text-muted">
+              … and more on{" "}
+              <a
+                href={`${GITHUB}?tab=repositories`}
+                target="_blank"
+                rel="noreferrer"
+                className="text-accent hover:underline underline-offset-4"
+              >
+                github ↗
+              </a>
+            </p>
+          </Reveal>
+        </section>
+
+        {/* stack — spec sheet */}
+        <section aria-labelledby="stack" className="pb-24">
+          <SectionHeader id="stack" eyebrow="tools of the trade" title="spec sheet" />
+          <Reveal delay={100}>
+            <dl className="mt-10 border border-border-line divide-y divide-border-line font-mono text-sm bg-panel-2/40">
+              {specs.map((s) => (
+                <div
+                  key={s.label}
+                  className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 px-5 py-4"
+                >
+                  <dt className="text-[11px] uppercase tracking-widest text-muted sm:w-32 shrink-0">
+                    {s.label}
+                  </dt>
+                  <dd className="flex flex-wrap gap-2 text-foreground">
+                    {s.items.map((item) => (
+                      <span
+                        key={item}
+                        className="inline-flex items-center gap-1.5 border border-border-line bg-panel px-2.5 py-1 text-xs transition-colors hover:border-accent-dim hover:text-accent"
+                      >
+                        <TechIcon name={item} className="size-3.5" />
+                        {item}
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </section>
+
+        {/* beyond code */}
+        <section aria-labelledby="tuning" className="pb-24">
+          <SectionHeader id="tuning" eyebrow="off the clock" title="beyond code" />
+          <Reveal delay={100}>
+            <p className="mt-10 max-w-2xl text-sm sm:text-base text-muted leading-relaxed">
+              I treat my machines the way I treat my code: measured, tuned, and
+              predictable. PC hardware tuning and undervolting; local LLM
+              infrastructure for offline, low-latency coding; agentic workflows
+              with strict schemas as guardrails — the toolchain catches its own
+              errors and self-corrects.
+            </p>
+          </Reveal>
+        </section>
       </main>
+
+      {/* mantra marquee */}
+      <Reveal>
+        <div className="marquee overflow-hidden border-y border-border-line py-5" aria-hidden>
+          <div className="marquee-track-slow flex items-center">
+            {Array.from({ length: 4 }, (_, rep) =>
+              mantra.map((word, wi) => (
+                <span
+                  key={`${rep}-${word}`}
+                  className={`whitespace-pre font-mono text-6xl sm:text-8xl font-bold uppercase tracking-tighter ${
+                    rep % 2 === 0 && wi === 1 ? "outline-text-accent" : "outline-text"
+                  }`}
+                >
+                  {word}{"  ·  "}
+                </span>
+              ))
+            )}
+          </div>
+        </div>
+      </Reveal>
+
+      {/* contact */}
+      <footer
+        aria-labelledby="contact"
+        className="mx-auto w-full max-w-6xl px-5 sm:px-8 pt-24 pb-16"
+      >
+        <SectionHeader id="contact" eyebrow="say hello" title="open a channel" />
+        <Reveal delay={100}>
+          <div className="mt-10">
+            <a
+              href={`mailto:${EMAIL}`}
+              className="block break-all font-mono text-xl sm:text-3xl md:text-4xl text-foreground hover:text-accent transition-colors"
+            >
+              <ScrambleText text={EMAIL} startDelay={400} />
+            </a>
+            <a
+              href={GITHUB}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 block font-mono text-lg sm:text-2xl text-muted hover:text-accent transition-colors"
+            >
+              github.com/haruhadj ↗
+            </a>
+          </div>
+        </Reveal>
+        <p className="mt-16 font-mono text-xs text-muted">
+          haruhadj © {new Date().getFullYear()} — built with Next.js, styled by
+          hand<span className="cursor-block ml-2 w-[0.45em] h-[0.9em]" aria-hidden />
+        </p>
+      </footer>
     </div>
   );
 }

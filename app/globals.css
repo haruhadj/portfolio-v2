@@ -1,26 +1,368 @@
 @import "tailwindcss";
 
+/* dark is the default theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #07080c;
+  --panel: #0d1016;
+  --panel-2: #0a0d12;
+  --border: #1f242e;
+  --foreground: #d4dae4;
+  --muted: #69727f;
+  --accent: #ffab40;
+  --accent-dim: #a97427;
+  --ember: #ff5c33;
+  --ok: #3fb950;
+  --vignette: rgb(0 0 0 / 0.45);
+  --noise-opacity: 0.05;
+  color-scheme: dark;
+}
+
+/* opt-in light theme (set via data-theme by the toggle) */
+:root[data-theme="light"] {
+  --background: #f2f2ee;
+  --panel: #fafaf7;
+  --panel-2: #ebebe6;
+  --border: #d6d6cf;
+  --foreground: #22262e;
+  --muted: #626b76;
+  --accent: #a35b00;
+  --accent-dim: #c98a2e;
+  --ember: #d43d17;
+  --ok: #1a7f37;
+  --vignette: rgb(20 24 32 / 0.08);
+  --noise-opacity: 0.035;
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-border-line: var(--border);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-ember: var(--ember);
+  --color-ok: var(--ok);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-plex-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+/* ── terminal cursor ─────────────────────────────────────── */
+
+.cursor-block {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  vertical-align: baseline;
+  background: var(--accent);
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ── custom pointer ──────────────────────────────────────── */
+
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  pointer-events: none;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+}
+
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  transition:
+    width 0.25s ease,
+    height 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.cursor-ring.is-active {
+  width: 56px;
+  height: 56px;
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* ── page-load entrance ──────────────────────────────────── */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── scroll reveal (activated by IntersectionObserver) ───── */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── marquees ────────────────────────────────────────────── */
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track-slow {
+  width: max-content;
+  animation: marquee 45s linear infinite;
+}
+
+.marquee:hover .marquee-track,
+.marquee:hover .marquee-track-slow {
+  animation-play-state: paused;
+}
+
+/* ── giant outline type ──────────────────────────────────── */
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--muted) 55%, transparent);
+}
+
+.outline-text-accent {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--accent);
+}
+
+/* ── ambient background ──────────────────────────────────── */
+
+.bg-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(60px, 50px) scale(1.12);
+  }
+}
+
+.glow-blob {
+  animation: drift 22s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% {
+    top: -15%;
+  }
+  100% {
+    top: 115%;
+  }
+}
+
+.scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 140px;
+  top: -15%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--accent) 4%, transparent),
+    transparent
+  );
+  animation: scan 10s linear infinite;
+}
+
+/* film grain + edge vignette, above content, below pointer */
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 52%, var(--vignette));
+}
+
+/* ── theme toggle icons (CSS-driven, no hydration mismatch) ── */
+
+.theme-icon-moon {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-icon-moon {
+  display: inline-block;
+}
+
+/* ── spotlight cards (mouse-tracking radial highlight) ───── */
+
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in srgb, var(--accent) 10%, transparent),
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.spotlight:hover::before {
+  opacity: 1;
+}
+
+/* ── 3d tilt ─────────────────────────────────────────────── */
+
+.tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── status pulse ────────────────────────────────────────── */
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.2s ease-out infinite;
+}
+
+/* ── scroll hint ─────────────────────────────────────────── */
+
+@keyframes hint-drop {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.4;
+  }
+}
+
+.scroll-hint {
+  animation: hint-drop 1.8s ease-in-out infinite;
+}
+
+/* ── reduced motion: everything settles instantly ────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .cursor-block,
+  .animate-fade-up,
+  .marquee-track,
+  .marquee-track-slow,
+  .glow-blob,
+  .scanline,
+  .pulse-dot,
+  .scroll-hint {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .tilt {
+    transition: none;
+  }
 }

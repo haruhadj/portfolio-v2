@@ -32,6 +32,13 @@ const deployments: readonly Deployment[] = [
     repo: `${GITHUB}/nekostream`,
   },
   {
+    name: "rss2mail",
+    summary:
+      "RSS feed monitor that pushes new items to Gmail or Facebook Messenger on a configurable interval — full WebUI for feeds, settings, and logs, with Docker Compose deployment.",
+    stack: ["TypeScript", "Python", "Docker"],
+    repo: `${GITHUB}/rss2mail`,
+  },
+  {
     name: "skillforge",
     summary:
       "A web-based educational game library — my learning games collected under one roof, with shared scoring and progression.",
@@ -98,11 +105,6 @@ const processes = [
     name: "fill-in-the-blank-relay",
     summary: "Word game with relay timers, combo streaks, and progressive difficulty",
     lang: "TS",
-  },
-  {
-    name: "rss2mail",
-    summary: "RSS feed monitor that ships new items via Gmail or Messenger — WebUI, Docker-ready",
-    lang: "PY",
   },
   {
     name: "core-dsa",

@@ -11,6 +11,7 @@ import TiltCard from "./tilt-card";
 import TypedPrompt from "./typed-prompt";
 import { SiGithub } from "react-icons/si";
 
+const NAME = "Michael Fernandez";
 const GITHUB = "https://github.com/haruhadj";
 const EMAIL = "michaelfernandezskie@gmail.com";
 
@@ -193,8 +194,8 @@ export default function Home() {
           className="mx-auto flex max-w-6xl items-center gap-3 sm:gap-4 px-5 py-3 font-mono text-xs sm:px-8 sm:text-sm"
           aria-label="Main"
         >
-          <span className="text-accent">haruhadj</span>
-          <span className="hidden sm:inline text-muted">v2026.07</span>
+          <span className="text-accent">{NAME}</span>
+          <span className="hidden sm:inline text-muted">haruhadj</span>
           <span className="flex-1" />
           <a href="#deployments" className="text-muted hover:text-foreground transition-colors">
             /projects
@@ -221,7 +222,6 @@ export default function Home() {
 
       {/* hero — full-viewport particle field */}
       <section className="relative h-[100svh]">
-        <h1 className="sr-only">haruhadj — full-stack developer</h1>
         <ParticleHero className="absolute inset-0 size-full" />
 
         <div className="pointer-events-none absolute inset-x-0 top-[16%] flex justify-center px-5">
@@ -230,7 +230,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-[14%] flex justify-center px-5">
+        <div className="pointer-events-none absolute inset-x-0 bottom-[14%] flex flex-col items-center gap-4 px-5">
+          <h1 className="animate-fade-up text-center font-mono text-3xl sm:text-5xl font-bold tracking-tighter text-foreground [animation-delay:300ms]">
+            {NAME}
+          </h1>
           <p className="animate-fade-up max-w-xl text-center text-base sm:text-lg text-muted leading-relaxed [animation-delay:500ms]">
             Full-stack developer building{" "}
             <span className="text-foreground">type-safe web apps</span> and{" "}
@@ -506,7 +509,7 @@ export default function Home() {
           </div>
         </Reveal>
         <p className="mt-16 font-mono text-xs text-muted">
-          haruhadj © {new Date().getFullYear()} — built with Next.js, styled by
+          {NAME} © {new Date().getFullYear()} — built with Next.js, styled by
           hand<span className="cursor-block ml-2 w-[0.45em] h-[0.9em]" aria-hidden />
         </p>
       </footer>

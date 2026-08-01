@@ -13,10 +13,31 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
+const DESCRIPTION =
+  "Full-stack developer building type-safe web apps and tuned systems. Next.js, Hono, Drizzle, PostgreSQL, agentic AI workflows.";
+
 export const metadata: Metadata = {
-  title: "haruhadj — full-stack developer",
-  description:
-    "Full-stack developer building type-safe web apps and tuned systems. Next.js, Hono, Drizzle, PostgreSQL, agentic AI workflows.",
+  // Absolute base for og:image and friends — required for link previews.
+  // Must include the basePath: metadataBase does not inherit it, so a bare
+  // origin here resolves og:image to /opengraph-image (404) instead of
+  // /portfolio/opengraph-image.
+  metadataBase: new URL("https://haruhadj.org/portfolio"),
+  title: "Michael Fernandez — full-stack developer",
+  description: DESCRIPTION,
+  authors: [{ name: "Michael Fernandez", url: "https://github.com/haruhadj" }],
+  creator: "Michael Fernandez",
+  openGraph: {
+    type: "website",
+    url: "https://haruhadj.org/portfolio",
+    siteName: "Michael Fernandez",
+    title: "Michael Fernandez — full-stack developer",
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Michael Fernandez — full-stack developer",
+    description: DESCRIPTION,
+  },
 };
 
 export const viewport: Viewport = {

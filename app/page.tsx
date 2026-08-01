@@ -43,6 +43,28 @@ const deployments = [
 
 const processes = [
   {
+    name: "nekostream",
+    summary:
+      "Self-hosted anime tracker — AniList browsing, Nyaa.si episode feeds, dual AniList/MAL progress sync",
+    lang: "TS",
+  },
+  {
+    name: "trace-dsa-study",
+    summary:
+      "DSA study companion — 17-topic roadmap, 21 interactive visualizers, 52 curated problems",
+    lang: "TS",
+  },
+  {
+    name: "webdav-server",
+    summary: "Tiny self-hosted WebDAV server — single static Go binary in a ~20MB Docker image",
+    lang: "GO",
+  },
+  {
+    name: "streamsync-yt",
+    summary: "YouTube music request system for streamers — live queue sync and OBS overlay",
+    lang: "TS",
+  },
+  {
     name: "grandmaster-chess",
     summary: "Responsive chess with single-player AI and real-time multiplayer via WebSockets",
     lang: "TS",

@@ -14,7 +14,23 @@ import { SiGithub } from "react-icons/si";
 const GITHUB = "https://github.com/haruhadj";
 const EMAIL = "michaelfernandezskie@gmail.com";
 
-const deployments = [
+type Deployment = {
+  name: string;
+  summary: string;
+  stack: readonly string[];
+  /** Public URL, when there is one. Self-hosted builds link to source only. */
+  live?: string;
+  repo: string;
+};
+
+const deployments: readonly Deployment[] = [
+  {
+    name: "nekostream",
+    summary:
+      "Self-hosted anime tracker — browse and search via AniList, build episode lists from Nyaa.si RSS, and sync watch progress to AniList and MyAnimeList at once. Dockerized for ARM64.",
+    stack: ["Next.js", "TypeScript", "Docker"],
+    repo: `${GITHUB}/nekostream`,
+  },
   {
     name: "skillforge",
     summary:
@@ -39,15 +55,9 @@ const deployments = [
     live: "https://payroll-system-fawn.vercel.app",
     repo: `${GITHUB}/payroll-system`,
   },
-] as const;
+];
 
 const processes = [
-  {
-    name: "nekostream",
-    summary:
-      "Self-hosted anime tracker — AniList browsing, Nyaa.si episode feeds, dual AniList/MAL progress sync",
-    lang: "TS",
-  },
   {
     name: "trace-dsa-study",
     summary:
@@ -282,7 +292,11 @@ export default function Home() {
 
         {/* deployments — featured apps */}
         <section aria-labelledby="deployments" className="pt-24 pb-24">
-          <SectionHeader id="deployments" eyebrow="featured · 3 live" title="deployments" />
+          <SectionHeader
+            id="deployments"
+            eyebrow={`featured · ${deployments.length} builds`}
+            title="deployments"
+          />
           <div className="mt-10 grid gap-6">
             {deployments.map((d, i) => (
               <Reveal key={d.name} delay={i * 100}>
@@ -299,34 +313,46 @@ export default function Home() {
                         <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors">
                           {d.name}
                         </h3>
-                        <span className="inline-flex items-center gap-1.5 text-ok text-xs">
-                          <span className="pulse-dot size-1.5 rounded-full bg-ok" aria-hidden />
-                          live
-                        </span>
+                        {d.live ? (
+                          <span className="inline-flex items-center gap-1.5 text-ok text-xs">
+                            <span className="pulse-dot size-1.5 rounded-full bg-ok" aria-hidden />
+                            live
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1.5 text-muted text-xs">
+                            <span
+                              className="size-1.5 rounded-full border border-muted"
+                              aria-hidden
+                            />
+                            self-hosted
+                          </span>
+                        )}
                       </div>
                       <p className="mt-4 max-w-2xl text-sm sm:text-base text-muted leading-relaxed">
                         {d.summary}
                       </p>
                       <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-sm">
                         <a
-                          href={d.live}
+                          href={d.live ?? d.repo}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-1 border border-accent px-4 py-2 text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
                         >
-                          open{" "}
+                          {d.live ? "open" : "source"}{" "}
                           <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                             ↗
                           </span>
                         </a>
-                        <a
-                          href={d.repo}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-muted hover:text-foreground transition-colors"
-                        >
-                          source
-                        </a>
+                        {d.live && (
+                          <a
+                            href={d.repo}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-muted hover:text-foreground transition-colors"
+                          >
+                            source
+                          </a>
+                        )}
                         <span className="flex-1" />
                         {d.stack.map((s) => (
                           <span

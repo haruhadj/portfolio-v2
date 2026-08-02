@@ -41,6 +41,7 @@ const deployments: readonly Deployment[] = [
       "Self-hosted anime tracker — browse and search via AniList, build episode lists from Nyaa.si RSS, and sync watch progress to AniList and MyAnimeList at once. Dockerized for ARM64.",
     stack: ["Next.js", "TypeScript", "Docker"],
     repo: `${GITHUB}/nekostream`,
+    shot: "nekostream-img.png",
   },
   {
     name: "rss2mail",
@@ -56,6 +57,7 @@ const deployments: readonly Deployment[] = [
     stack: ["Next.js", "TypeScript"],
     live: "https://skillforge.haruhadj.org/",
     repo: `${GITHUB}/skillforge`,
+    shot: "skillforge.png",
   },
   {
     name: "secure-qr-attendance",
@@ -64,6 +66,7 @@ const deployments: readonly Deployment[] = [
     stack: ["Next.js", "TypeScript"],
     live: "https://secure-qr-attendance.vercel.app",
     repo: `${GITHUB}/secure-qr-attendance`,
+    shot: "qr-attendance.png",
   },
   {
     name: "payroll-system",
@@ -72,6 +75,7 @@ const deployments: readonly Deployment[] = [
     stack: ["TypeScript"],
     live: "https://payroll-system-fawn.vercel.app",
     repo: `${GITHUB}/payroll-system`,
+    shot: "payroll.png",
   },
 ];
 

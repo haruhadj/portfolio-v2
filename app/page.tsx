@@ -52,7 +52,7 @@ const deployments: readonly Deployment[] = [
   {
     name: "skillforge",
     summary:
-      "A web-based educational game library — my learning games collected under one roof, with shared scoring and progression.",
+      "A multi-app web platform — independent learning modules sharing a common scoring and progression layer, served under a single roof.",
     stack: ["Next.js", "TypeScript"],
     live: "https://skillforge.haruhadj.org/",
     repo: `${GITHUB}/skillforge`,
@@ -95,26 +95,6 @@ const processes = [
   {
     name: "grandmaster-chess",
     summary: "Responsive chess with single-player AI and real-time multiplayer via WebSockets",
-    lang: "TS",
-  },
-  {
-    name: "geomaster",
-    summary: "Geography learning game — flags, capitals, competitive modes, real-time scoring",
-    lang: "TS",
-  },
-  {
-    name: "tictactoe",
-    summary: "Tic Tac Toe with AI, local PVP, and online PVP via Socket.IO",
-    lang: "JS",
-  },
-  {
-    name: "gomoku",
-    summary: "Five-in-a-row strategy board game",
-    lang: "TS",
-  },
-  {
-    name: "fill-in-the-blank-relay",
-    summary: "Word game with relay timers, combo streaks, and progressive difficulty",
     lang: "TS",
   },
   {
@@ -405,7 +385,7 @@ export default function Home() {
 
         {/* process list — games */}
         <section aria-labelledby="processes" className="pb-24">
-          <SectionHeader id="processes" eyebrow="games · tools · experiments" title="process list" />
+          <SectionHeader id="processes" eyebrow="tools · experiments" title="process list" />
           <Reveal delay={100}>
             <ul className="mt-10 border border-border-line divide-y divide-border-line bg-panel-2/40">
               {processes.map((p) => (

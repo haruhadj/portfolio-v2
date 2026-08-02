@@ -275,7 +275,7 @@ export default function Home() {
               <dt className="text-[11px] uppercase tracking-widest text-muted">status</dt>
               <dd className="mt-2 text-3xl sm:text-4xl text-foreground flex items-center gap-3">
                 <span className="pulse-dot inline-block size-2.5 rounded-full bg-ok" aria-hidden />
-                <span className="text-xl sm:text-2xl">building</span>
+                <span className="text-xl sm:text-2xl">open to work</span>
               </dd>
             </div>
           </dl>

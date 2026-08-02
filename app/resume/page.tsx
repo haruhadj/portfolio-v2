@@ -138,9 +138,9 @@ export default function Resume() {
         Full-stack developer specializing in type-safe TypeScript web applications, from
         PostgreSQL schema through to Docker deployment. I build and self-host production
         systems on my own ARM64 infrastructure — integrating third-party OAuth APIs,
-        managing DNS and tunnels, and running services I maintain daily. Computer Science
-        student, self-taught across the modern stack, seeking an internship or entry-level
-        role where I can ship real software.
+        managing DNS and tunnels, and running services I maintain daily. BS Computer
+        Science graduate (July 2026), self-taught across the modern stack, seeking a junior
+        or entry-level developer role where I can ship real software.
       </p>
 
       <SectionTitle>Technical Skills</SectionTitle>
@@ -215,7 +215,7 @@ export default function Resume() {
           <h3 className="font-mono font-bold text-foreground">Our Lady of Assumption College</h3>
           <p className="text-foreground/90">
             Bachelor of Science in Computer Science
-            <span className="text-muted"> · 2022 – Present</span>
+            <span className="text-muted"> · 2022 – 2026 · Graduated July 2026</span>
           </p>
         </div>
         <div className="resume-item">

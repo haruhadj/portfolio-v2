@@ -366,3 +366,70 @@ body {
     transition: none;
   }
 }
+
+/* ── résumé print styles ──────────────────────────────────────────────
+   The /resume page doubles as the PDF: browser print → Save as PDF.
+   Force a light document regardless of the site theme, drop decoration,
+   and keep entries from splitting across pages.                        */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 14mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .no-print,
+  .noise,
+  .vignette {
+    display: none !important;
+  }
+
+  .resume-page {
+    max-width: none;
+    padding: 0 !important;
+    font-size: 10.5pt;
+  }
+
+  /* theme tokens → print-safe values */
+  .resume-page,
+  .resume-page * {
+    color: #000 !important;
+    background: transparent !important;
+    text-shadow: none !important;
+  }
+
+  .resume-page .text-accent,
+  .resume-page .resume-h2 {
+    color: #000 !important;
+  }
+
+  .resume-page a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  .resume-page .resume-h2 {
+    border-bottom: 1px solid #000 !important;
+    margin-top: 16pt;
+  }
+
+  /* don't break an entry across a page boundary */
+  .resume-item,
+  .resume-page h1,
+  .resume-page h2,
+  .resume-page h3 {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resume-page h2,
+  .resume-page h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+}

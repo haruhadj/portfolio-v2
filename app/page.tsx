@@ -9,6 +9,7 @@ import TechIcon from "./tech-icon";
 import ThemeToggle from "./theme-toggle";
 import TiltCard from "./tilt-card";
 import TypedPrompt from "./typed-prompt";
+import Link from "next/link";
 import { SiGithub } from "react-icons/si";
 
 const NAME = "Michael Fernandez";
@@ -206,6 +207,9 @@ export default function Home() {
           <a href="#contact" className="text-muted hover:text-foreground transition-colors">
             /contact
           </a>
+          <Link href="/resume" className="text-accent hover:text-foreground transition-colors">
+            /resume
+          </Link>
           <a
             href={GITHUB}
             target="_blank"
@@ -506,6 +510,12 @@ export default function Home() {
             >
               github.com/haruhadj ↗
             </a>
+            <Link
+              href="/resume"
+              className="mt-8 inline-flex items-center gap-2 border border-accent px-5 py-3 font-mono text-sm text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
+            >
+              read my résumé →
+            </Link>
           </div>
         </Reveal>
         <p className="mt-16 font-mono text-xs text-muted">

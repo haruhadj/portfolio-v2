@@ -9,12 +9,19 @@ import TechIcon from "./tech-icon";
 import ThemeToggle from "./theme-toggle";
 import TiltCard from "./tilt-card";
 import TypedPrompt from "./typed-prompt";
+import Image from "next/image";
 import Link from "next/link";
 import { SiGithub } from "react-icons/si";
 
 const NAME = "Michael Fernandez";
 const GITHUB = "https://github.com/haruhadj";
 const EMAIL = "michaelfernandezskie@gmail.com";
+
+/**
+ * next/image does NOT apply basePath to a `src` string, so screenshot paths
+ * must carry it explicitly. See docs/PROJECT-NOTES.md.
+ */
+const BASE = "/portfolio";
 
 type Deployment = {
   name: string;
@@ -23,6 +30,8 @@ type Deployment = {
   /** Public URL, when there is one. Self-hosted builds link to source only. */
   live?: string;
   repo: string;
+  /** Filename in public/shots — omit and the card renders text-only. */
+  shot?: string;
 };
 
 const deployments: readonly Deployment[] = [
@@ -337,9 +346,22 @@ export default function Home() {
                           </span>
                         )}
                       </div>
-                      <p className="mt-4 max-w-2xl text-sm sm:text-base text-muted leading-relaxed">
-                        {d.summary}
-                      </p>
+                      <div className="mt-4 flex flex-col gap-6 lg:flex-row lg:items-start">
+                        <p className="max-w-2xl flex-1 text-sm sm:text-base text-muted leading-relaxed">
+                          {d.summary}
+                        </p>
+                        {d.shot && (
+                          <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden border border-border-line bg-panel-2 lg:w-72">
+                            <Image
+                              src={`${BASE}/shots/${d.shot}`}
+                              alt={`${d.name} interface screenshot`}
+                              fill
+                              sizes="(min-width: 1024px) 18rem, 100vw"
+                              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                            />
+                          </div>
+                        )}
+                      </div>
                       <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-sm">
                         <a
                           href={d.live ?? d.repo}

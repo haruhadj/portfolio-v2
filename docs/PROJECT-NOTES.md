@@ -70,6 +70,14 @@ Projects live in two arrays at the top of the file.
 - Without `live`: muted hollow dot + `self-hosted` badge, `source ↗` as the primary
   action, no dead secondary link.
 
+`shot` is also optional — a filename in `public/shots`. Present, the card renders a
+16:10 screenshot alongside the summary; absent, it stays text-only. See
+`public/shots/README.md` for capture requirements.
+
+**Important:** `next/image` does **not** apply `basePath` to a `src` string, unlike
+`next/link`. Screenshot paths must include it explicitly, which is what the `BASE`
+constant in `app/page.tsx` is for.
+
 **`processes`** — the compact list below; each entry links to its GitHub repo.
 
 Keep a project in **one** array, not both.

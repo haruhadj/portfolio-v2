@@ -145,7 +145,7 @@ export default function Resume() {
           width={128}
           height={128}
           priority
-          className="resume-photo h-28 w-28 shrink-0 border border-border-line object-cover sm:h-32 sm:w-32"
+          className="resume-photo h-28 w-28 shrink-0 border border-border-line object-cover object-top sm:h-32 sm:w-32"
         />
       </header>
 

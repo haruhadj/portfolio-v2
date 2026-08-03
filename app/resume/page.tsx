@@ -235,12 +235,12 @@ export default function Resume() {
           </p>
         </div>
         <div className="resume-item">
-          <h3 className="font-mono font-bold text-foreground">
-            San Pedro Relocation Center National High School
-          </h3>
           <p className="text-foreground/90">
-            Senior High School, Broadband Installation (TVL)
-            <span className="text-muted"> · Graduated 2020</span>
+            <span className="font-mono font-bold text-foreground">
+              San Pedro Relocation Center National HS
+            </span>{" "}
+            — TVL, Broadband Installation
+            <span className="text-muted"> · 2020</span>
           </p>
         </div>
       </div>

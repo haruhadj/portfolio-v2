@@ -81,6 +81,11 @@ const deployments: readonly Deployment[] = [
 
 const processes = [
   {
+    name: "reddit-ai-summarizer-extension",
+    summary: "Browser extension (Chrome + Firefox) that adds a `Summarize with AI` button to Reddit post threads. Summarizes the post plus top comments using your own API key.",
+    lang: "TS",
+  },
+  {
     name: "trace-dsa-study",
     summary:
       "DSA study companion — 17-topic roadmap, 21 interactive visualizers, 52 curated problems",

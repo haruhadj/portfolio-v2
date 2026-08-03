@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import PrintButton from "./print-button";
 
@@ -11,6 +12,11 @@ export const metadata: Metadata = {
 const EMAIL = "michaelfernandezskie@gmail.com";
 const GITHUB = "https://github.com/haruhadj";
 const SITE = "https://haruhadj.org/portfolio";
+
+/**
+ * next/image does NOT apply basePath to a `src` string. See docs/PROJECT-NOTES.md.
+ */
+const BASE = "/portfolio";
 
 const skills = [
   { label: "Languages", items: "TypeScript, JavaScript (ES6+), Python, Go, SQL" },
@@ -111,7 +117,8 @@ export default function Resume() {
         <PrintButton />
       </div>
 
-      <header>
+      <header className="flex flex-col-reverse items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+        <div>
         <h1 className="font-mono text-4xl font-bold tracking-tighter text-foreground sm:text-5xl">
           Michael G. Fernandez
         </h1>
@@ -131,6 +138,15 @@ export default function Resume() {
             haruhadj.org/portfolio
           </a>
         </p>
+        </div>
+        <Image
+          src={`${BASE}/my-formal-picture.png`}
+          alt="Portrait of Michael G. Fernandez"
+          width={128}
+          height={128}
+          priority
+          className="resume-photo h-28 w-28 shrink-0 border border-border-line object-cover sm:h-32 sm:w-32"
+        />
       </header>
 
       <SectionTitle>Summary</SectionTitle>

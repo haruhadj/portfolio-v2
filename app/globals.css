@@ -403,6 +403,13 @@ body {
     text-shadow: none !important;
   }
 
+  /* keep the portrait from being flattened by the print-safe overrides */
+  .resume-page .resume-photo {
+    border: 1px solid #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   .resume-page .text-accent,
   .resume-page .resume-h2 {
     color: #000 !important;

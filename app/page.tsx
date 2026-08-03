@@ -193,16 +193,25 @@ export default function Home() {
           className="mx-auto flex max-w-6xl items-center gap-3 sm:gap-4 px-5 py-3 font-mono text-xs sm:px-8 sm:text-sm"
           aria-label="Main"
         >
-          <span className="text-accent">{NAME}</span>
+          <span className="text-accent whitespace-nowrap">{NAME}</span>
           <span className="hidden sm:inline text-muted">haruhadj</span>
           <span className="flex-1" />
-          <a href="#deployments" className="text-muted hover:text-foreground transition-colors">
+          <a
+            href="#deployments"
+            className="hidden sm:inline text-muted hover:text-foreground transition-colors"
+          >
             /projects
           </a>
-          <a href="#stack" className="text-muted hover:text-foreground transition-colors">
+          <a
+            href="#stack"
+            className="hidden sm:inline text-muted hover:text-foreground transition-colors"
+          >
             /stack
           </a>
-          <a href="#contact" className="text-muted hover:text-foreground transition-colors">
+          <a
+            href="#contact"
+            className="hidden sm:inline text-muted hover:text-foreground transition-colors"
+          >
             /contact
           </a>
           <Link href="/resume" className="text-accent hover:text-foreground transition-colors">
@@ -233,6 +242,16 @@ export default function Home() {
         </div>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-[14%] flex flex-col items-center gap-4 px-5">
+          <div className="animate-fade-up size-20 overflow-hidden rounded-full border-2 border-accent-dim/50 shadow-[0_0_24px_-6px_var(--color-accent)] sm:size-24 [animation-delay:150ms]">
+            <Image
+              src={`${BASE}/my-formal-picture.png`}
+              alt={`Portrait of ${NAME}`}
+              width={96}
+              height={96}
+              priority
+              className="size-full object-cover object-top"
+            />
+          </div>
           <h1 className="animate-fade-up text-center font-mono text-3xl sm:text-5xl font-bold tracking-tighter text-foreground [animation-delay:300ms]">
             {NAME}
           </h1>
@@ -277,7 +296,7 @@ export default function Home() {
                   aria-hidden={i >= stream.length}
                   className="flex items-center gap-2 font-mono text-xs text-muted whitespace-nowrap"
                 >
-                  <TechIcon name={item} className="size-3.5 text-accent-dim" />
+                  <TechIcon name={item} className="size-4 text-accent-dim" />
                   {item}
                 </span>
               ))}
@@ -367,7 +386,7 @@ export default function Home() {
                             key={s}
                             className="inline-flex items-center gap-1.5 text-muted text-xs"
                           >
-                            <TechIcon name={s} className="size-3" />
+                            <TechIcon name={s} className="size-3.5" />
                             {s}
                           </span>
                         ))}
@@ -441,7 +460,7 @@ export default function Home() {
                         key={item}
                         className="inline-flex items-center gap-1.5 border border-border-line bg-panel px-2.5 py-1 text-xs transition-colors hover:border-accent-dim hover:text-accent"
                       >
-                        <TechIcon name={item} className="size-3.5" />
+                        <TechIcon name={item} className="size-4" />
                         {item}
                       </span>
                     ))}

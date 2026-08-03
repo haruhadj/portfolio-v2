@@ -242,16 +242,6 @@ export default function Home() {
         </div>
 
         <div className="pointer-events-none absolute inset-x-0 bottom-[14%] flex flex-col items-center gap-4 px-5">
-          <div className="animate-fade-up size-20 overflow-hidden rounded-full border-2 border-accent-dim/50 shadow-[0_0_24px_-6px_var(--color-accent)] sm:size-24 [animation-delay:150ms]">
-            <Image
-              src={`${BASE}/my-formal-picture.png`}
-              alt={`Portrait of ${NAME}`}
-              width={96}
-              height={96}
-              priority
-              className="size-full object-cover object-top"
-            />
-          </div>
           <h1 className="animate-fade-up text-center font-mono text-3xl sm:text-5xl font-bold tracking-tighter text-foreground [animation-delay:300ms]">
             {NAME}
           </h1>

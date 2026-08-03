@@ -254,12 +254,6 @@ export default function Home() {
         <Reveal>
           <dl className="grid grid-cols-1 sm:grid-cols-3 border border-border-line divide-y sm:divide-y-0 sm:divide-x divide-border-line font-mono bg-panel-2/60 backdrop-blur-sm">
             <div className="px-5 py-5">
-              <dt className="text-[11px] uppercase tracking-widest text-muted">games shipped</dt>
-              <dd className="mt-2 text-3xl sm:text-4xl text-foreground">
-                <CountUp value={20} suffix="+" />
-              </dd>
-            </div>
-            <div className="px-5 py-5">
               <dt className="text-[11px] uppercase tracking-widest text-muted">top language</dt>
               <dd className="mt-2 text-3xl sm:text-4xl text-accent">TS</dd>
             </div>

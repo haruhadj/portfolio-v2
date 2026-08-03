@@ -252,7 +252,7 @@ export default function Home() {
       <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         {/* readout strip */}
         <Reveal>
-          <dl className="grid grid-cols-1 sm:grid-cols-3 border border-border-line divide-y sm:divide-y-0 sm:divide-x divide-border-line font-mono bg-panel-2/60 backdrop-blur-sm">
+          <dl className="grid grid-cols-1 sm:grid-cols-2 border border-border-line divide-y sm:divide-y-0 sm:divide-x divide-border-line font-mono bg-panel-2/60 backdrop-blur-sm">
             <div className="px-5 py-5">
               <dt className="text-[11px] uppercase tracking-widest text-muted">top language</dt>
               <dd className="mt-2 text-3xl sm:text-4xl text-accent">TS</dd>

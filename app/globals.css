@@ -392,7 +392,24 @@ body {
   .resume-page {
     max-width: none;
     padding: 0 !important;
-    font-size: 10.5pt;
+    font-size: 10pt;
+  }
+
+  /* tighten vertical rhythm so the page count stays predictable in print */
+  .resume-page .leading-relaxed {
+    line-height: 1.42 !important;
+  }
+
+  .resume-page .space-y-5 > * + * {
+    margin-top: 10pt !important;
+  }
+
+  .resume-page .space-y-3 > * + * {
+    margin-top: 7pt !important;
+  }
+
+  .resume-page .space-y-1\.5 > * + * {
+    margin-top: 3pt !important;
   }
 
   /* theme tokens → print-safe values */
@@ -422,7 +439,7 @@ body {
 
   .resume-page .resume-h2 {
     border-bottom: 1px solid #000 !important;
-    margin-top: 16pt;
+    margin-top: 11pt;
   }
 
   /* don't break an entry across a page boundary */

@@ -288,15 +288,15 @@ export default function Home() {
 
         {/* stack stream */}
         <Reveal className="mx-[calc(50%-50vw)]">
-          <div className="marquee mt-14 overflow-hidden border-y border-border-line py-3">
-            <div className="marquee-track flex items-center gap-10">
+          <div className="marquee mt-14 overflow-hidden border-y border-border-line py-4">
+            <div className="marquee-track flex items-center gap-12">
               {[...stream, ...stream].map((item, i) => (
                 <span
                   key={`${item}-${i}`}
                   aria-hidden={i >= stream.length}
-                  className="flex items-center gap-2 font-mono text-xs text-muted whitespace-nowrap"
+                  className="flex items-center gap-2.5 font-mono text-sm text-muted whitespace-nowrap"
                 >
-                  <TechIcon name={item} className="size-4 text-accent-dim" />
+                  <TechIcon name={item} className="size-6 text-accent-dim" />
                   {item}
                 </span>
               ))}
@@ -384,9 +384,9 @@ export default function Home() {
                         {d.stack.map((s) => (
                           <span
                             key={s}
-                            className="inline-flex items-center gap-1.5 text-muted text-xs"
+                            className="inline-flex items-center gap-2 text-muted text-sm"
                           >
-                            <TechIcon name={s} className="size-3.5" />
+                            <TechIcon name={s} className="size-5" />
                             {s}
                           </span>
                         ))}
@@ -458,9 +458,9 @@ export default function Home() {
                     {s.items.map((item) => (
                       <span
                         key={item}
-                        className="inline-flex items-center gap-1.5 border border-border-line bg-panel px-2.5 py-1 text-xs transition-colors hover:border-accent-dim hover:text-accent"
+                        className="inline-flex items-center gap-2 border border-border-line bg-panel px-3 py-1.5 text-sm transition-colors hover:border-accent-dim hover:text-accent"
                       >
-                        <TechIcon name={item} className="size-4" />
+                        <TechIcon name={item} className="size-5" />
                         {item}
                       </span>
                     ))}

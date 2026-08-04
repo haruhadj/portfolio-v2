@@ -197,6 +197,12 @@ export default function Home() {
           <span className="hidden sm:inline text-muted">haruhadj</span>
           <span className="flex-1" />
           <a
+            href="#about"
+            className="hidden sm:inline text-muted hover:text-foreground transition-colors"
+          >
+            /about
+          </a>
+          <a
             href="#deployments"
             className="hidden sm:inline text-muted hover:text-foreground transition-colors"
           >
@@ -259,6 +265,21 @@ export default function Home() {
       </section>
 
       <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+        {/* about */}
+        <section aria-labelledby="about" className="pt-24 pb-16">
+          <SectionHeader id="about" eyebrow="who I am" title="about" />
+          <Reveal delay={100}>
+            <p className="mt-10 max-w-2xl text-sm sm:text-base text-muted leading-relaxed">
+              I&apos;m a self-taught full-stack developer specializing in type-safe TypeScript
+              applications, from PostgreSQL schema through to Docker deployment. Most of what I
+              build, I also run myself — production systems self-hosted on my own ARM64
+              infrastructure, integrating third-party OAuth APIs and managing my own DNS and
+              tunnels day to day. BS Computer Science graduate (July 2026), looking for a junior
+              or entry-level role where I can keep shipping real software.
+            </p>
+          </Reveal>
+        </section>
+
         {/* readout strip */}
         <Reveal>
           <dl className="grid grid-cols-1 sm:grid-cols-2 border border-border-line divide-y sm:divide-y-0 sm:divide-x divide-border-line font-mono bg-panel-2/60 backdrop-blur-sm">

@@ -45,6 +45,10 @@ export default function ParticleHero({
     if (!ctx) return;
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Coarse pointers (touch) can't drag over the canvas without the
+    // gesture being claimed as a page scroll first — skip the repel
+    // interaction there rather than fight it; the field still animates.
+    const canInteract = window.matchMedia("(pointer: fine)").matches;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const mouse = { x: -1e4, y: -1e4 };
     let particles: Particle[] = [];
@@ -191,9 +195,11 @@ export default function ParticleHero({
         }
       }
     };
-    window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("pointerdown", onDown, { passive: true });
-    document.documentElement.addEventListener("mouseleave", onLeave);
+    if (canInteract) {
+      window.addEventListener("pointermove", onMove, { passive: true });
+      window.addEventListener("pointerdown", onDown, { passive: true });
+      document.documentElement.addEventListener("mouseleave", onLeave);
+    }
 
     let firstResize = true;
     const ro = new ResizeObserver(() => {
@@ -210,9 +216,11 @@ export default function ParticleHero({
       cancelAnimationFrame(raf);
       ro.disconnect();
       themeObserver.disconnect();
-      window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerdown", onDown);
-      document.documentElement.removeEventListener("mouseleave", onLeave);
+      if (canInteract) {
+        window.removeEventListener("pointermove", onMove);
+        window.removeEventListener("pointerdown", onDown);
+        document.documentElement.removeEventListener("mouseleave", onLeave);
+      }
     };
   }, [text]);
 

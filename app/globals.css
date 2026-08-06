@@ -320,6 +320,155 @@ body {
   animation: pulse-dot 2.2s ease-out infinite;
 }
 
+/* ── boot curtain ────────────────────────────────────────── */
+
+.boot-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+}
+
+.boot-curtain span {
+  transition: opacity 0.3s ease;
+}
+
+.boot-curtain.is-lifted {
+  transform: translateY(-100%);
+}
+
+/* ── section rail ────────────────────────────────────────── */
+
+.section-rail {
+  position: fixed;
+  left: 22px;
+  top: 50%;
+  z-index: 45;
+  display: none;
+  flex-direction: column;
+  gap: 18px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+@media (min-width: 1280px) {
+  .section-rail {
+    display: flex;
+  }
+}
+
+.rail-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.35s ease;
+}
+
+.rail-bar {
+  display: block;
+  width: 14px;
+  height: 1px;
+  background: var(--muted);
+  transition:
+    width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s ease;
+}
+
+.rail-link:hover,
+.rail-link.is-active {
+  color: var(--accent);
+}
+
+.rail-link:hover .rail-bar,
+.rail-link.is-active .rail-bar {
+  width: 34px;
+  background: var(--accent);
+}
+
+/* ── heading letter stagger (driven by the parent .reveal) ── */
+
+.split-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(70%) rotate(6deg);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible .split-letter {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── magnetic buttons ────────────────────────────────────── */
+
+.magnetic {
+  display: inline-flex;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* ── condensing header ───────────────────────────────────── */
+
+.site-header {
+  transition:
+    padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.4s ease;
+}
+
+.site-header.is-condensed {
+  padding-block: 0;
+  background: color-mix(in srgb, var(--background) 85%, transparent);
+}
+
+.site-header nav {
+  transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-header.is-condensed nav {
+  padding-block: 0.5rem;
+}
+
+/* ── process rows: amber wipe ────────────────────────────── */
+
+.wipe-row {
+  position: relative;
+  overflow: hidden;
+}
+
+.wipe-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.wipe-row:hover::before,
+.wipe-row:focus-visible::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.wipe-row > * {
+  position: relative;
+}
+
 /* ── scroll hint ─────────────────────────────────────────── */
 
 @keyframes hint-drop {
@@ -363,6 +512,18 @@ body {
   }
 
   .tilt {
+    transition: none;
+  }
+
+  .split-letter {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .magnetic,
+  .wipe-row::before,
+  .boot-curtain {
     transition: none;
   }
 }

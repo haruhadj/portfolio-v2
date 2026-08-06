@@ -1,7 +1,14 @@
+import BootCurtain from "./boot-curtain";
 import CountUp from "./count-up";
 import CustomCursor from "./custom-cursor";
+import HeroParallax from "./hero-parallax";
+import Magnetic from "./magnetic";
+import Parallax from "./parallax";
 import ParticleHero from "./particle-hero";
 import Reveal from "./reveal";
+import SectionRail from "./section-rail";
+import SplitText from "./split-text";
+import StickyHeader from "./sticky-header";
 import ScrambleText from "./scramble-text";
 import ScrollProgress from "./scroll-progress";
 import SpotlightCard from "./spotlight-card";
@@ -140,6 +147,15 @@ const stream = [
 
 const mantra = ["build", "tune", "ship"] as const;
 
+/** Left-edge rail — ids must match the section headings they point at. */
+const railLinks = [
+  { id: "about", label: "about" },
+  { id: "deployments", label: "work" },
+  { id: "processes", label: "tools" },
+  { id: "stack", label: "stack" },
+  { id: "contact", label: "contact" },
+] as const;
+
 function AmbientBackground() {
   return (
     <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
@@ -170,9 +186,10 @@ function SectionHeader({
       </p>
       <h2
         id={id}
+        aria-label={title}
         className="mt-2 scroll-mt-28 font-mono text-4xl sm:text-6xl font-bold uppercase tracking-tighter text-foreground"
       >
-        {title}
+        <SplitText text={title} />
       </h2>
     </Reveal>
   );
@@ -181,14 +198,16 @@ function SectionHeader({
 export default function Home() {
   return (
     <div className="flex-1 w-full">
+      <BootCurtain />
       <ScrollProgress />
       <CustomCursor />
+      <SectionRail links={railLinks} />
       <AmbientBackground />
       <div aria-hidden className="vignette" />
       <div aria-hidden className="noise" />
 
       {/* status bar */}
-      <header className="fixed inset-x-0 top-0 z-20 border-b border-border-line/60 bg-background/60 backdrop-blur-md">
+      <StickyHeader>
         <nav
           className="mx-auto flex max-w-6xl items-center gap-3 sm:gap-4 px-5 py-3 font-mono text-xs sm:px-8 sm:text-sm"
           aria-label="Main"
@@ -235,19 +254,27 @@ export default function Home() {
           </a>
           <ThemeToggle />
         </nav>
-      </header>
+      </StickyHeader>
 
       {/* hero — full-viewport particle field */}
-      <section className="relative h-[100svh]">
-        <ParticleHero className="absolute inset-0 size-full" />
+      <HeroParallax className="relative h-[100svh]">
+        <div data-hero="field" className="absolute inset-0">
+          <ParticleHero className="size-full" />
+        </div>
 
-        <div className="pointer-events-none absolute inset-x-0 top-[16%] flex justify-center px-5">
+        <div
+          data-hero="top"
+          className="pointer-events-none absolute inset-x-0 top-[16%] flex justify-center px-5"
+        >
           <div className="animate-fade-up">
             <TypedPrompt />
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-[14%] flex flex-col items-center gap-4 px-5">
+        <div
+          data-hero="bottom"
+          className="pointer-events-none absolute inset-x-0 bottom-[14%] flex flex-col items-center gap-4 px-5"
+        >
           <h1 className="animate-fade-up text-center font-mono text-3xl sm:text-5xl font-bold tracking-tighter text-foreground [animation-delay:300ms]">
             {NAME}
           </h1>
@@ -262,7 +289,7 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
           <p className="scroll-hint font-mono text-xs text-muted">scroll ↓</p>
         </div>
-      </section>
+      </HeroParallax>
 
       <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         {/* about */}
@@ -359,28 +386,33 @@ export default function Home() {
                         </p>
                         {d.shot && (
                           <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden border border-border-line bg-panel-2 lg:w-72">
-                            <Image
-                              src={`${BASE}/shots/${d.shot}`}
-                              alt={`${d.name} interface screenshot`}
-                              fill
-                              sizes="(min-width: 1024px) 18rem, 100vw"
-                              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                            />
+                            {/* extra vertical headroom so the parallax drift never exposes an edge */}
+                            <Parallax className="absolute -inset-y-4 inset-x-0">
+                              <Image
+                                src={`${BASE}/shots/${d.shot}`}
+                                alt={`${d.name} interface screenshot`}
+                                fill
+                                sizes="(min-width: 1024px) 18rem, 100vw"
+                                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                              />
+                            </Parallax>
                           </div>
                         )}
                       </div>
                       <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-sm">
-                        <a
-                          href={d.live ?? d.repo}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 border border-accent px-4 py-2 text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
-                        >
-                          {d.live ? "open" : "source"}{" "}
-                          <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                            ↗
-                          </span>
-                        </a>
+                        <Magnetic>
+                          <a
+                            href={d.live ?? d.repo}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 border border-accent px-4 py-2 text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
+                          >
+                            {d.live ? "open" : "source"}{" "}
+                            <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                              ↗
+                            </span>
+                          </a>
+                        </Magnetic>
                         {d.live && (
                           <a
                             href={d.repo}
@@ -421,7 +453,7 @@ export default function Home() {
                     href={`${GITHUB}/${p.name}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 px-5 py-4 transition-all duration-300 hover:bg-accent hover:pl-8"
+                    className="wipe-row group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 px-5 py-4 transition-all duration-300 hover:pl-8"
                   >
                     <span className="font-mono text-sm text-foreground shrink-0 sm:w-60 transition-colors duration-300 group-hover:text-background">
                       ▸ {p.name}
@@ -539,12 +571,14 @@ export default function Home() {
             >
               github.com/haruhadj ↗
             </a>
-            <Link
-              href="/resume"
-              className="mt-8 inline-flex items-center gap-2 border border-accent px-5 py-3 font-mono text-sm text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
-            >
-              read my résumé →
-            </Link>
+            <Magnetic className="mt-8">
+              <Link
+                href="/resume"
+                className="inline-flex items-center gap-2 border border-accent px-5 py-3 font-mono text-sm text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
+              >
+                read my résumé →
+              </Link>
+            </Magnetic>
           </div>
         </Reveal>
         <p className="mt-16 font-mono text-xs text-muted">

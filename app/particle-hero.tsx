@@ -54,6 +54,9 @@ export default function ParticleHero({
     let particles: Particle[] = [];
     let raf = 0;
     let disposed = false;
+    // ramps 0 → 1 over the first couple seconds so the field visibly
+    // assembles into the wordmark instead of snapping into place
+    let intro = 0;
     let AMBER: [number, number, number] = [255, 171, 64];
     let EMBER: [number, number, number] = [255, 92, 51];
 
@@ -105,16 +108,19 @@ export default function ParticleHero({
         }
       }
       particles = next;
+      intro = 0;
     };
 
     const step = () => {
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
       ctx.clearRect(0, 0, w, h);
+      intro = Math.min(intro + 0.006, 1);
+      const pull = 0.008 + intro * 0.022;
       for (const p of particles) {
         // spring toward the glyph
-        p.vx += (p.tx - p.x) * 0.03;
-        p.vy += (p.ty - p.y) * 0.03;
+        p.vx += (p.tx - p.x) * pull;
+        p.vy += (p.ty - p.y) * pull;
         // cursor = heat source
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;

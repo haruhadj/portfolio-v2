@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { waitForBootDone } from "./boot-signal";
 
 type Particle = {
   x: number;
@@ -164,8 +165,10 @@ export default function ParticleHero({
       else raf = requestAnimationFrame(step);
     };
 
-    // wait for the mono font so the rasterized word matches the page
-    document.fonts.ready.then(start);
+    // wait for the mono font (so the rasterized word matches the page) and
+    // for the boot curtain to clear, so assembly isn't half-finished when
+    // it's finally revealed
+    Promise.all([document.fonts.ready, waitForBootDone()]).then(start);
 
     // re-color when the theme toggle flips data-theme
     const themeObserver = new MutationObserver(() => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { signalBootDone } from "./boot-signal";
 
 const LINES = [
   { label: "mounting /haruhadj", status: "ok" },
@@ -23,7 +24,10 @@ export default function BootCurtain() {
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const id = setTimeout(() => setDone(true), 0);
+      const id = setTimeout(() => {
+        setDone(true);
+        signalBootDone();
+      }, 0);
       return () => clearTimeout(id);
     }
     const timers = [
@@ -32,7 +36,10 @@ export default function BootCurtain() {
       ),
       setTimeout(() => setVisibleLines(LINES.length + 1), 180 + LINES.length * LINE_STEP),
       setTimeout(() => setLifted(true), LIFT_AT),
-      setTimeout(() => setDone(true), LIFT_AT + LIFT_DURATION + 50),
+      setTimeout(() => {
+        setDone(true);
+        signalBootDone();
+      }, LIFT_AT + LIFT_DURATION + 50),
     ];
     return () => timers.forEach(clearTimeout);
   }, []);

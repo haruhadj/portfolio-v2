@@ -27,10 +27,16 @@ export default function SectionRail({ links }: { links: readonly RailLink[] }) {
       rail.style.opacity = window.scrollY > vh * REVEAL_AT_VIEWPORTS ? "1" : "0";
 
       let active = "";
-      for (const anchor of anchors) {
-        const section = document.getElementById(anchor.dataset.rail ?? "");
-        if (section && section.getBoundingClientRect().top < vh * ACTIVE_LINE) {
-          active = anchor.dataset.rail ?? "";
+      const doc = document.documentElement;
+      const atBottom = window.scrollY + vh >= doc.scrollHeight - 2;
+      if (atBottom && anchors.length) {
+        active = anchors[anchors.length - 1].dataset.rail ?? "";
+      } else {
+        for (const anchor of anchors) {
+          const section = document.getElementById(anchor.dataset.rail ?? "");
+          if (section && section.getBoundingClientRect().top < vh * ACTIVE_LINE) {
+            active = anchor.dataset.rail ?? "";
+          }
         }
       }
       for (const anchor of anchors) {

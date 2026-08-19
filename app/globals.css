@@ -615,11 +615,15 @@ body {
 /* ── résumé print styles ──────────────────────────────────────────────
    The /resume page doubles as the PDF: browser print → Save as PDF.
    Force a light document regardless of the site theme, drop decoration,
-   and keep entries from splitting across pages.                        */
+   and keep entries from splitting across pages.
+
+   The page size is deliberately NOT pinned, so the sheet adopts whatever
+   paper the reader has loaded. That makes US Letter the binding constraint:
+   at 279.4mm it is 17.6mm shorter than A4, leaving 254mm of content height
+   against A4's 271.6mm. Keep the content fitting Letter and A4 follows.   */
 @media print {
   @page {
-    size: A4;
-    margin: 14mm 14mm;
+    margin: 12.7mm 14mm; /* 0.5in top/bottom — the standard résumé margin */
   }
 
   html,
@@ -641,13 +645,19 @@ body {
     font-size: 10pt;
   }
 
+  /* the on-screen display size for the name is far too large for paper */
+  .resume-page h1 {
+    font-size: 22pt;
+    line-height: 1.1;
+  }
+
   /* tighten vertical rhythm so the page count stays predictable in print */
   .resume-page .leading-relaxed {
-    line-height: 1.42 !important;
+    line-height: 1.36 !important;
   }
 
   .resume-page .space-y-5 > * + * {
-    margin-top: 10pt !important;
+    margin-top: 7pt !important;
   }
 
   .resume-page .space-y-3 > * + * {
@@ -666,13 +676,6 @@ body {
     text-shadow: none !important;
   }
 
-  /* keep the portrait from being flattened by the print-safe overrides */
-  .resume-page .resume-photo {
-    border: 1px solid #000 !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
   .resume-page .text-accent,
   .resume-page .resume-h2 {
     color: #000 !important;
@@ -685,7 +688,12 @@ body {
 
   .resume-page .resume-h2 {
     border-bottom: 1px solid #000 !important;
-    margin-top: 11pt;
+    margin-top: 6pt;
+  }
+
+  /* the on-screen mt-3 gap under each section rule is too airy for one page */
+  .resume-page .resume-h2 + * {
+    margin-top: 4pt !important;
   }
 
   /* don't break an entry across a page boundary */

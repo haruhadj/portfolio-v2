@@ -1,5 +1,4 @@
 import BootCurtain from "./boot-curtain";
-import CountUp from "./count-up";
 import CustomCursor from "./custom-cursor";
 import HeroParallax from "./hero-parallax";
 import Magnetic from "./magnetic";
@@ -8,17 +7,15 @@ import ParticleHero from "./particle-hero";
 import Reveal from "./reveal";
 import SectionRail from "./section-rail";
 import SplitText from "./split-text";
-import StickyHeader from "./sticky-header";
 import ScrambleText from "./scramble-text";
 import ScrollProgress from "./scroll-progress";
 import SpotlightCard from "./spotlight-card";
 import TechIcon from "./tech-icon";
-import ThemeToggle from "./theme-toggle";
 import TiltCard from "./tilt-card";
 import TypedPrompt from "./typed-prompt";
+import UtilityCluster from "./utility-cluster";
 import Image from "next/image";
 import Link from "next/link";
-import { SiGithub } from "react-icons/si";
 
 const NAME = "Michael Fernandez";
 const GITHUB = "https://github.com/haruhadj";
@@ -156,105 +153,65 @@ const railLinks = [
   { id: "contact", label: "contact" },
 ] as const;
 
+/** Two layers, not five — the grid sets the register, one blob warms it. */
 function AmbientBackground() {
   return (
     <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
       <div className="absolute inset-0 bg-grid opacity-25" />
       <div className="glow-blob absolute -top-40 left-1/4 size-[36rem] rounded-full bg-accent/10 blur-3xl" />
-      <div
-        className="glow-blob absolute top-1/2 -right-40 size-[30rem] rounded-full bg-ember/5 blur-3xl"
-        style={{ animationDelay: "-11s" }}
-      />
-      <div className="scanline" />
     </div>
   );
 }
 
+/**
+ * Numbered header on an asymmetric grid: index and eyebrow sit in a narrow
+ * left gutter aligned to the rail's axis, title in the wide column. `split`
+ * opts a single heading into the letter-stagger — used sparingly, since the
+ * same flourish on every heading is what makes motion read as generated.
+ */
 function SectionHeader({
   id,
+  index,
   eyebrow,
   title,
+  split = false,
 }: {
   id: string;
+  index: number;
   eyebrow: string;
   title: string;
+  split?: boolean;
 }) {
   return (
     <Reveal>
-      <p className="font-mono text-xs sm:text-sm text-accent">
-        <span className="text-muted">──</span> {eyebrow}
-      </p>
-      <h2
-        id={id}
-        aria-label={title}
-        className="mt-2 scroll-mt-28 font-mono text-4xl sm:text-6xl font-bold uppercase tracking-tighter text-foreground"
-      >
-        <SplitText text={title} />
-      </h2>
+      <div className="grid gap-3 lg:grid-cols-[9rem_1fr] lg:gap-10">
+        <div className="font-mono text-xs sm:text-sm lg:pt-4">
+          <span className="text-accent">{String(index).padStart(2, "0")}</span>
+          <span className="mx-2 text-muted">/</span>
+          <span className="text-muted lg:block lg:mx-0 lg:mt-1">{eyebrow}</span>
+        </div>
+        <h2
+          id={id}
+          aria-label={title}
+          className="scroll-mt-28 font-mono text-5xl sm:text-7xl lg:text-8xl font-bold uppercase tracking-tighter text-foreground"
+        >
+          {split ? <SplitText text={title} /> : title}
+        </h2>
+      </div>
     </Reveal>
   );
 }
 
 export default function Home() {
   return (
-    <div className="flex-1 w-full">
+    <div id="top" className="flex-1 w-full pb-14 lg:pb-0">
       <BootCurtain />
       <ScrollProgress />
       <CustomCursor />
-      <SectionRail links={railLinks} />
+      <SectionRail links={railLinks} mark="haruhadj" />
+      <UtilityCluster github={GITHUB} />
       <AmbientBackground />
-      <div aria-hidden className="vignette" />
       <div aria-hidden className="noise" />
-
-      {/* status bar */}
-      <StickyHeader>
-        <nav
-          className="mx-auto flex max-w-6xl items-center gap-3 sm:gap-4 px-5 py-3 font-mono text-xs sm:px-8 sm:text-sm"
-          aria-label="Main"
-        >
-          <span className="text-accent whitespace-nowrap">{NAME}</span>
-          <span className="hidden sm:inline text-muted">haruhadj</span>
-          <span className="flex-1" />
-          <a
-            href="#about"
-            className="hidden sm:inline text-muted hover:text-foreground transition-colors"
-          >
-            /about
-          </a>
-          <a
-            href="#deployments"
-            className="hidden sm:inline text-muted hover:text-foreground transition-colors"
-          >
-            /projects
-          </a>
-          <a
-            href="#stack"
-            className="hidden sm:inline text-muted hover:text-foreground transition-colors"
-          >
-            /stack
-          </a>
-          <a
-            href="#contact"
-            className="hidden sm:inline text-muted hover:text-foreground transition-colors"
-          >
-            /contact
-          </a>
-          <Link href="/resume" className="text-accent hover:text-foreground transition-colors">
-            /resume
-          </Link>
-          <a
-            href={GITHUB}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub profile"
-            className="text-muted hover:text-accent transition-colors"
-          >
-            <SiGithub className="size-4 sm:hidden" aria-hidden />
-            <span className="hidden sm:inline">github ↗</span>
-          </a>
-          <ThemeToggle />
-        </nav>
-      </StickyHeader>
 
       {/* hero — full-viewport particle field */}
       <HeroParallax className="relative h-[100svh]">
@@ -294,35 +251,16 @@ export default function Home() {
       <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         {/* about */}
         <section aria-labelledby="about" className="pt-24 pb-16">
-          <SectionHeader id="about" eyebrow="who I am" title="about" />
+          <SectionHeader id="about" index={1} eyebrow="who I am" title="about" split />
           <Reveal delay={100}>
-            <p className="mt-10 max-w-2xl text-sm sm:text-base text-muted leading-relaxed">
-              I&apos;m a self-taught full-stack developer specializing in type-safe TypeScript
-              applications, from PostgreSQL schema through to Docker deployment. Most of what I
-              build, I also run myself — production systems self-hosted on my own ARM64
-              infrastructure, integrating third-party OAuth APIs and managing my own DNS and
-              tunnels day to day. BS Computer Science graduate (July 2026), looking for a junior
-              or entry-level role where I can keep shipping real software.
+            <p className="mt-10 max-w-[58ch] text-base sm:text-lg text-muted leading-relaxed section-body">
+              I&apos;m a self-taught full-stack developer who builds type-safe TypeScript apps,
+              from database to deployment. I also host and run what I build myself, on my own
+              Raspberry pi 5 server. BS Computer Science graduate (July 2026), looking for a junior
+              or entry-level role.
             </p>
           </Reveal>
         </section>
-
-        {/* readout strip */}
-        <Reveal>
-          <dl className="grid grid-cols-1 sm:grid-cols-2 border border-border-line divide-y sm:divide-y-0 sm:divide-x divide-border-line font-mono bg-panel-2/60 backdrop-blur-sm">
-            <div className="px-5 py-5">
-              <dt className="text-[11px] uppercase tracking-widest text-muted">top language</dt>
-              <dd className="mt-2 text-3xl sm:text-4xl text-accent">TS</dd>
-            </div>
-            <div className="px-5 py-5">
-              <dt className="text-[11px] uppercase tracking-widest text-muted">status</dt>
-              <dd className="mt-2 text-3xl sm:text-4xl text-foreground flex items-center gap-3">
-                <span className="pulse-dot inline-block size-2.5 rounded-full bg-ok" aria-hidden />
-                <span className="text-xl sm:text-2xl">open to work</span>
-              </dd>
-            </div>
-          </dl>
-        </Reveal>
 
         {/* stack stream */}
         <Reveal className="mx-[calc(50%-50vw)]">
@@ -346,10 +284,11 @@ export default function Home() {
         <section aria-labelledby="deployments" className="pt-24 pb-24">
           <SectionHeader
             id="deployments"
+            index={2}
             eyebrow={`featured · ${deployments.length} builds`}
             title="deployments"
           />
-          <div className="mt-10 grid gap-6">
+          <div className="mt-10 grid gap-6 section-body">
             {deployments.map((d, i) => (
               <Reveal key={d.name} delay={i * 100}>
                 <TiltCard>
@@ -444,9 +383,9 @@ export default function Home() {
 
         {/* process list — games */}
         <section aria-labelledby="processes" className="pb-24">
-          <SectionHeader id="processes" eyebrow="tools · experiments" title="process list" />
+          <SectionHeader id="processes" index={3} eyebrow="tools · experiments" title="process list" />
           <Reveal delay={100}>
-            <ul className="mt-10 border border-border-line divide-y divide-border-line bg-panel-2/40">
+            <ul className="mt-10 border border-border-line divide-y divide-border-line bg-panel-2/40 section-body">
               {processes.map((p) => (
                 <li key={p.name}>
                   <a
@@ -470,7 +409,7 @@ export default function Home() {
             </ul>
           </Reveal>
           <Reveal delay={200}>
-            <p className="mt-4 font-mono text-xs text-muted">
+            <p className="mt-4 font-mono text-xs text-muted section-body">
               … and more on{" "}
               <a
                 href={`${GITHUB}?tab=repositories`}
@@ -486,9 +425,9 @@ export default function Home() {
 
         {/* stack — spec sheet */}
         <section aria-labelledby="stack" className="pb-24">
-          <SectionHeader id="stack" eyebrow="tools of the trade" title="spec sheet" />
+          <SectionHeader id="stack" index={4} eyebrow="tools of the trade" title="spec sheet" />
           <Reveal delay={100}>
-            <dl className="mt-10 border border-border-line divide-y divide-border-line font-mono text-sm bg-panel-2/40">
+            <dl className="mt-10 border border-border-line divide-y divide-border-line font-mono text-sm bg-panel-2/40 section-body">
               {specs.map((s) => (
                 <div
                   key={s.label}
@@ -516,9 +455,9 @@ export default function Home() {
 
         {/* beyond code */}
         <section aria-labelledby="tuning" className="pb-24">
-          <SectionHeader id="tuning" eyebrow="off the clock" title="beyond code" />
+          <SectionHeader id="tuning" index={5} eyebrow="off the clock" title="beyond code" />
           <Reveal delay={100}>
-            <p className="mt-10 max-w-2xl text-sm sm:text-base text-muted leading-relaxed">
+            <p className="mt-10 max-w-[58ch] text-base sm:text-lg text-muted leading-relaxed section-body">
               I treat my machines the way I treat my code: measured, tuned, and
               predictable. PC hardware tuning and undervolting; local LLM
               infrastructure for offline, low-latency coding; agentic workflows
@@ -554,9 +493,9 @@ export default function Home() {
         aria-labelledby="contact"
         className="mx-auto w-full max-w-6xl px-5 sm:px-8 pt-24 pb-16"
       >
-        <SectionHeader id="contact" eyebrow="say hello" title="open a channel" />
+        <SectionHeader id="contact" index={6} eyebrow="say hello" title="open a channel" />
         <Reveal delay={100}>
-          <div className="mt-10">
+          <div className="mt-10 section-body">
             <a
               href={`mailto:${EMAIL}`}
               className="block break-all font-mono text-xl sm:text-3xl md:text-4xl text-foreground hover:text-accent transition-colors"

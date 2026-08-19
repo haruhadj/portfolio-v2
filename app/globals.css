@@ -12,7 +12,6 @@
   --accent-dim: #a97427;
   --ember: #ff5c33;
   --ok: #3fb950;
-  --vignette: rgb(0 0 0 / 0.45);
   --noise-opacity: 0.05;
   color-scheme: dark;
 }
@@ -29,7 +28,6 @@
   --accent-dim: #c98a2e;
   --ember: #d43d17;
   --ok: #1a7f37;
-  --vignette: rgb(20 24 32 / 0.08);
   --noise-opacity: 0.035;
   color-scheme: light;
 }
@@ -179,6 +177,15 @@ body {
   animation-play-state: paused;
 }
 
+/* Full-bleed marquees would otherwise run straight through the nav rail.
+   Fading the left edge clears the rail's column while keeping the
+   scrolls-in-from-offscreen illusion. */
+@media (min-width: 1024px) {
+  .marquee {
+    mask-image: linear-gradient(to right, transparent 0, transparent 8rem, black 13rem);
+  }
+}
+
 /* ── giant outline type ──────────────────────────────────── */
 
 .outline-text {
@@ -215,31 +222,7 @@ body {
   animation: drift 22s ease-in-out infinite;
 }
 
-@keyframes scan {
-  0% {
-    top: -15%;
-  }
-  100% {
-    top: 115%;
-  }
-}
-
-.scanline {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 140px;
-  top: -15%;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    color-mix(in srgb, var(--accent) 4%, transparent),
-    transparent
-  );
-  animation: scan 10s linear infinite;
-}
-
-/* film grain + edge vignette, above content, below pointer */
+/* film grain, above content, below pointer */
 
 .noise {
   position: fixed;
@@ -248,14 +231,6 @@ body {
   pointer-events: none;
   opacity: var(--noise-opacity);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-.vignette {
-  position: fixed;
-  inset: 0;
-  z-index: 30;
-  pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 52%, var(--vignette));
 }
 
 /* ── theme toggle icons (CSS-driven, no hydration mismatch) ── */
@@ -342,47 +317,26 @@ body {
   transform: translateY(-100%);
 }
 
-/* ── section rail ────────────────────────────────────────── */
+/* ── section rail — the site's only navigation ────────────
+   Below lg the same element re-lays out as a bottom dock. The dock is
+   always visible; only the desktop rail is gated behind the hero, where
+   it would otherwise compete with the particle field. */
 
 .section-rail {
   position: fixed;
-  left: 22px;
-  top: 50%;
   z-index: 45;
-  display: none;
-  flex-direction: column;
-  gap: 18px;
-  transform: translateY(-50%);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
-@media (min-width: 1280px) {
-  .section-rail {
-    display: flex;
-  }
+  display: flex;
+  font-family: var(--font-jetbrains-mono), monospace;
 }
 
 .rail-link {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
   transition: color 0.35s ease;
-}
-
-.rail-bar {
-  display: block;
-  width: 14px;
-  height: 1px;
-  background: var(--muted);
-  transition:
-    width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.35s ease;
 }
 
 .rail-link:hover,
@@ -390,10 +344,162 @@ body {
   color: var(--accent);
 }
 
-.rail-link:hover .rail-bar,
-.rail-link.is-active .rail-bar {
-  width: 34px;
-  background: var(--accent);
+/* — bottom dock (default, below lg) — */
+
+.section-rail {
+  inset-inline: 0;
+  bottom: 0;
+  align-items: stretch;
+  border-top: 1px solid var(--border);
+  background: color-mix(in srgb, var(--background) 92%, transparent);
+  backdrop-filter: blur(8px);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.rail-mark {
+  display: none;
+}
+
+.rail-links {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.rail-link {
+  justify-content: center;
+  padding: 14px 6px;
+  border-top: 1px solid transparent;
+  margin-top: -1px;
+}
+
+.rail-link.is-active {
+  border-top-color: var(--accent);
+}
+
+/* the expanding bar is a horizontal idiom — no room for it in the dock */
+.rail-bar {
+  display: none;
+}
+
+/* — left rail (lg and up) — */
+
+@media (min-width: 1024px) {
+  .section-rail {
+    inset-inline: auto;
+    bottom: auto;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 22px;
+    border-top: 0;
+    background: none;
+    backdrop-filter: none;
+    padding-bottom: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .section-rail.is-revealed {
+    opacity: 1;
+  }
+
+  /* full-bleed marquees pass behind the rail — this keeps it readable
+     over them without painting a panel that would show on plain ground */
+  .rail-mark,
+  .rail-link {
+    text-shadow:
+      0 0 6px var(--background),
+      0 0 3px var(--background);
+  }
+
+  .rail-mark {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    transition: color 0.35s ease;
+  }
+
+  .rail-mark:hover {
+    color: var(--foreground);
+  }
+
+  .rail-links {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .rail-link {
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 0;
+    border-top: 0;
+    margin-top: 0;
+  }
+
+  .rail-bar {
+    display: block;
+    width: 14px;
+    height: 1px;
+    background: var(--muted);
+    transition:
+      width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.35s ease;
+  }
+
+  .rail-link:hover .rail-bar,
+  .rail-link.is-active .rail-bar {
+    width: 34px;
+    background: var(--accent);
+  }
+}
+
+/* ── section body ────────────────────────────────────────────
+   Indents content into the right column of SectionHeader's asymmetric
+   grid, so the left gutter reads as a real structural column rather than
+   a one-off on the heading. Must track the grid's `9rem` + `2.5rem` gap. */
+
+@media (min-width: 1024px) {
+  .section-body {
+    padding-left: calc(9rem + 2.5rem);
+  }
+}
+
+/* ── utility cluster ─────────────────────────────────────── */
+
+.utility-cluster {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.utility-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  transition: color 0.35s ease;
+}
+
+.utility-link:hover {
+  color: var(--accent);
+}
+
+@media (min-width: 1024px) {
+  .utility-cluster {
+    top: 26px;
+    right: 26px;
+  }
 }
 
 /* ── heading letter stagger (driven by the parent .reveal) ── */
@@ -418,27 +524,6 @@ body {
   display: inline-flex;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
-}
-
-/* ── condensing header ───────────────────────────────────── */
-
-.site-header {
-  transition:
-    padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.4s ease;
-}
-
-.site-header.is-condensed {
-  padding-block: 0;
-  background: color-mix(in srgb, var(--background) 85%, transparent);
-}
-
-.site-header nav {
-  transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.site-header.is-condensed nav {
-  padding-block: 0.5rem;
 }
 
 /* ── process rows: amber wipe ────────────────────────────── */
@@ -499,7 +584,6 @@ body {
   .marquee-track,
   .marquee-track-slow,
   .glow-blob,
-  .scanline,
   .pulse-dot,
   .scroll-hint {
     animation: none;
@@ -546,7 +630,8 @@ body {
 
   .no-print,
   .noise,
-  .vignette {
+  .section-rail,
+  .utility-cluster {
     display: none !important;
   }
 

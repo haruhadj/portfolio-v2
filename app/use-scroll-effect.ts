@@ -24,6 +24,10 @@ function listen() {
   listening = true;
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
+  // rAF throttling can coalesce away the final frame of a smooth scroll,
+  // leaving painters showing state from mid-animation. scrollend guarantees
+  // one paint at the resting position.
+  window.addEventListener("scrollend", paintAll);
 }
 
 function unlisten() {
@@ -31,6 +35,7 @@ function unlisten() {
   listening = false;
   window.removeEventListener("scroll", onScroll);
   window.removeEventListener("resize", onScroll);
+  window.removeEventListener("scrollend", paintAll);
 }
 
 /**

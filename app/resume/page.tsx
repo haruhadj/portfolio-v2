@@ -13,8 +13,14 @@ const GITHUB = "https://github.com/haruhadj";
 const SITE = "https://haruhadj.org/portfolio";
 
 const skills = [
-  { label: "Languages", items: "TypeScript, JavaScript (ES6+), Python, Go, SQL" },
-  { label: "Web", items: "Next.js, React, Node.js, Hono, Tailwind CSS, Zod, better-auth" },
+  {
+    label: "Languages",
+    items: "TypeScript, JavaScript (ES6+), Python, Go, SQL",
+  },
+  {
+    label: "Web",
+    items: "Next.js, React, Node.js, Hono, Tailwind CSS, Zod, better-auth",
+  },
   { label: "Data", items: "PostgreSQL, SQLite, Drizzle ORM" },
   {
     label: "Infrastructure",
@@ -30,7 +36,7 @@ const projects = [
     stack: "Next.js · PostgreSQL · Docker",
     bullets: [
       "Integrated two third-party OAuth providers (AniList and MyAnimeList), synchronizing watch progress to both simultaneously and reconciling state between their differing APIs.",
-      "Packaged with Docker Compose and deployed to ARM64 hardware; config fully environment-driven.",
+      "Packaged with Docker Compose and deployed to ARM64 hardware like Raspberry Pi 5 server; config fully environment-driven.",
     ],
   },
   {
@@ -43,12 +49,13 @@ const projects = [
     ],
   },
   {
-    name: "Trace",
-    tagline: "DSA study companion",
-    stack: "TypeScript · React",
+    name: "Tsugi",
+    tagline: "Fast anime/manga recommendation sharing",
+    stack: "Next.js · Typscript · Supabase",
+    url: "https://tsugi.haruhadj.org/",
+    label: "tsugi.haruhadj.org",
     bullets: [
-      "Built 21 interactive algorithm visualizers (sorting, searching, linked lists, tree traversals, BST, heaps, graph BFS/DFS) that record each algorithm as replayable steps.",
-      "Authored lessons and 52 curated problems with solutions in three languages.",
+      "Fast anime/manga recommendation sharing. Sign in, pick one title or several, score them, and get a shareable link with a rich social preview — in under 10 seconds. Anyone can open that link; only creating needs an account.",
     ],
   },
 ];
@@ -102,7 +109,10 @@ export default function Resume() {
     <div className="resume-page mx-auto w-full max-w-3xl px-5 py-12 sm:px-8">
       {/* screen-only controls */}
       <div className="no-print mb-10 flex flex-wrap items-center gap-4 font-mono text-sm">
-        <Link href="/" className="text-muted transition-colors hover:text-accent">
+        <Link
+          href="/"
+          className="text-muted transition-colors hover:text-accent"
+        >
           ← back to portfolio
         </Link>
         <span className="flex-1" />
@@ -113,7 +123,9 @@ export default function Resume() {
         <h1 className="font-mono text-4xl font-bold tracking-tighter text-foreground sm:text-5xl">
           Michael G. Fernandez
         </h1>
-        <p className="mt-2 font-mono text-base text-accent">Full-Stack Developer</p>
+        <p className="mt-2 font-mono text-base text-accent">
+          Full-Stack Developer
+        </p>
         <p className="resume-contact mt-3 text-sm text-muted">
           San Pedro, Laguna, Philippines
           <span className="mx-2">·</span>
@@ -133,15 +145,18 @@ export default function Resume() {
 
       <SectionTitle>Summary</SectionTitle>
       <p className="mt-3 text-sm leading-relaxed text-foreground/90">
-        Full-stack developer: type-safe TypeScript from PostgreSQL schema to Docker
-        deployment, self-hosted on my own ARM64 infrastructure. BS Computer Science (July
-        2026), seeking a junior developer role.
+        Full-stack developer: type-safe TypeScript from PostgreSQL schema to
+        Docker deployment, self-hosted on my own ARM64 infrastructure. BS
+        Computer Science (July 2026), seeking a junior developer role.
       </p>
 
       <SectionTitle>Technical Skills</SectionTitle>
       <dl className="mt-3 space-y-1.5 text-sm">
         {skills.map((s) => (
-          <div key={s.label} className="flex flex-col gap-0.5 sm:flex-row sm:gap-3">
+          <div
+            key={s.label}
+            className="flex flex-col gap-0.5 sm:flex-row sm:gap-3"
+          >
             <dt className="shrink-0 font-mono text-xs uppercase tracking-wider text-muted sm:w-32 sm:pt-0.5">
               {s.label}
             </dt>
@@ -155,19 +170,37 @@ export default function Resume() {
         {projects.map((p) => (
           <article key={p.name} className="resume-item">
             <h3 className="font-mono text-base font-bold text-foreground">
-              {p.name} <span className="font-normal text-muted">— {p.tagline}</span>{" "}
-              <span className="text-xs font-normal text-accent">· {p.stack}</span>
+              {p.name}{" "}
+              <span className="font-normal text-muted">— {p.tagline}</span>{" "}
+              <span className="text-xs font-normal text-accent">
+                · {p.stack}
+              </span>
             </h3>
             <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
               {p.bullets.map((b) => (
-                <Bullet key={b}>{b}</Bullet>
+                <Bullet key={b}>{b} {p.url && (
+                <>
+                  <span className="text-muted">· </span>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-normal text-accent hover:underline"
+                  >
+                    {p.label || p.url}
+                  </a>{" "}
+                </>
+              )}</Bullet>
               ))}
+              
             </ul>
           </article>
         ))}
 
         <article className="resume-item">
-          <h3 className="font-mono text-base font-bold text-foreground">Also shipped</h3>
+          <h3 className="font-mono text-base font-bold text-foreground">
+            Also shipped
+          </h3>
           <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
             {alsoShipped.map((d) => (
               <Bullet key={d.name}>
@@ -182,17 +215,15 @@ export default function Resume() {
                 )}
               </Bullet>
             ))}
-            <Bullet>
-              Plus 20+ open-source browser games and learning tools, including chess with
-              AI and WebSocket multiplayer.
-            </Bullet>
           </ul>
         </article>
       </div>
 
       <SectionTitle>Education</SectionTitle>
       <p className="resume-item mt-3 text-sm text-foreground/90">
-        <span className="font-mono font-bold text-foreground">Our Lady of Assumption College</span>{" "}
+        <span className="font-mono font-bold text-foreground">
+          Our Lady of Assumption College
+        </span>{" "}
         — BS Computer Science
         <span className="text-muted"> · 2022 – 2026 · Graduated July 2026</span>
       </p>

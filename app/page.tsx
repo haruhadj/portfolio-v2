@@ -40,6 +40,15 @@ type Deployment = {
 
 const deployments: readonly Deployment[] = [
   {
+    name: "tsugi",
+    summary:
+      "Fast anime/manga recommendation sharing. Sign in, pick one title or several, score them, and get a shareable link with a rich social preview — in under 10 seconds. Anyone can open that link; only creating needs an account.",
+    stack: ["Next.js", "TypeScript", "Supabase"],
+    live: "https://tsugi.haruhadj.org/feed",
+    repo: `${GITHUB}/tsugi`,
+    shot: "tsugi-showcase.png",
+  },
+  {
     name: "nekostream",
     summary:
       "Self-hosted anime tracker — browse and search via AniList, build episode lists from Nyaa.si RSS, and sync watch progress to AniList and MyAnimeList at once. Dockerized for ARM64.",
@@ -86,7 +95,8 @@ const deployments: readonly Deployment[] = [
 const processes = [
   {
     name: "reddit-ai-summarizer-extension",
-    summary: "Browser extension (Chrome + Firefox) that adds a `Summarize with AI` button to Reddit post threads. Summarizes the post plus top comments using your own API key.",
+    summary:
+      "Browser extension (Chrome + Firefox) that adds a `Summarize with AI` button to Reddit post threads. Summarizes the post plus top comments using your own API key.",
     lang: "TS",
   },
   {
@@ -97,22 +107,26 @@ const processes = [
   },
   {
     name: "webdav-server",
-    summary: "Tiny self-hosted WebDAV server — single static Go binary in a ~20MB Docker image",
+    summary:
+      "Tiny self-hosted WebDAV server — single static Go binary in a ~20MB Docker image",
     lang: "GO",
   },
   {
     name: "streamsync-yt",
-    summary: "YouTube music request system for streamers — live queue sync and OBS overlay",
+    summary:
+      "YouTube music request system for streamers — live queue sync and OBS overlay",
     lang: "TS",
   },
   {
     name: "grandmaster-chess",
-    summary: "Responsive chess with single-player AI and real-time multiplayer via WebSockets",
+    summary:
+      "Responsive chess with single-player AI and real-time multiplayer via WebSockets",
     lang: "TS",
   },
   {
     name: "core-dsa",
-    summary: "Data structures & algorithms, implemented from scratch in TypeScript",
+    summary:
+      "Data structures & algorithms, implemented from scratch in TypeScript",
     lang: "TS",
   },
 ] as const;
@@ -122,7 +136,10 @@ const specs = [
   { label: "backend", items: ["Hono", "TypeScript", "Zod", "better-auth"] },
   { label: "database", items: ["PostgreSQL", "Drizzle ORM"] },
   { label: "deploy", items: ["Vercel", "Cloudflare", "Docker", "CI/CD"] },
-  { label: "workflow", items: ["Claude Code", "agentic pipelines", "local LLM infra"] },
+  {
+    label: "workflow",
+    items: ["Claude Code", "agentic pipelines", "local LLM infra"],
+  },
   { label: "learning", items: ["React Native", "Python"] },
 ] as const;
 
@@ -251,13 +268,20 @@ export default function Home() {
       <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         {/* about */}
         <section aria-labelledby="about" className="pt-24 pb-16">
-          <SectionHeader id="about" index={1} eyebrow="who I am" title="about" split />
+          <SectionHeader
+            id="about"
+            index={1}
+            eyebrow="who I am"
+            title="about"
+            split
+          />
           <Reveal delay={100}>
             <p className="mt-10 max-w-[58ch] text-base sm:text-lg text-muted leading-relaxed section-body">
-              I&apos;m a self-taught full-stack developer who builds type-safe TypeScript apps,
-              from database to deployment. I also host and run what I build myself, on my own
-              Raspberry pi 5 server. BS Computer Science graduate (July 2026), looking for a junior
-              or entry-level role.
+              Full-stack developer building type-safe TypeScript apps from
+              schema to deployment. I leverage AI-agentic workflows to ship
+              fast, paired with rigorous failure-mode analysis to ensure
+              production resilience. Early-career software engineer actively
+              seeking a junior or entry-level full-stack role.
             </p>
           </Reveal>
         </section>
@@ -306,7 +330,10 @@ export default function Home() {
                         </h3>
                         {d.live ? (
                           <span className="inline-flex items-center gap-1.5 text-ok text-xs">
-                            <span className="pulse-dot size-1.5 rounded-full bg-ok" aria-hidden />
+                            <span
+                              className="pulse-dot size-1.5 rounded-full bg-ok"
+                              aria-hidden
+                            />
                             live
                           </span>
                         ) : (
@@ -383,7 +410,12 @@ export default function Home() {
 
         {/* process list — games */}
         <section aria-labelledby="processes" className="pb-24">
-          <SectionHeader id="processes" index={3} eyebrow="tools · experiments" title="process list" />
+          <SectionHeader
+            id="processes"
+            index={3}
+            eyebrow="tools · experiments"
+            title="process list"
+          />
           <Reveal delay={100}>
             <ul className="mt-10 border border-border-line divide-y divide-border-line bg-panel-2/40 section-body">
               {processes.map((p) => (
@@ -425,7 +457,12 @@ export default function Home() {
 
         {/* stack — spec sheet */}
         <section aria-labelledby="stack" className="pb-24">
-          <SectionHeader id="stack" index={4} eyebrow="tools of the trade" title="spec sheet" />
+          <SectionHeader
+            id="stack"
+            index={4}
+            eyebrow="tools of the trade"
+            title="spec sheet"
+          />
           <Reveal delay={100}>
             <dl className="mt-10 border border-border-line divide-y divide-border-line font-mono text-sm bg-panel-2/40 section-body">
               {specs.map((s) => (
@@ -455,7 +492,12 @@ export default function Home() {
 
         {/* beyond code */}
         <section aria-labelledby="tuning" className="pb-24">
-          <SectionHeader id="tuning" index={5} eyebrow="off the clock" title="beyond code" />
+          <SectionHeader
+            id="tuning"
+            index={5}
+            eyebrow="off the clock"
+            title="beyond code"
+          />
           <Reveal delay={100}>
             <p className="mt-10 max-w-[58ch] text-base sm:text-lg text-muted leading-relaxed section-body">
               I treat my machines the way I treat my code: measured, tuned, and
@@ -470,19 +512,25 @@ export default function Home() {
 
       {/* mantra marquee */}
       <Reveal>
-        <div className="marquee overflow-hidden border-y border-border-line py-5" aria-hidden>
+        <div
+          className="marquee overflow-hidden border-y border-border-line py-5"
+          aria-hidden
+        >
           <div className="marquee-track-slow flex items-center">
             {Array.from({ length: 4 }, (_, rep) =>
               mantra.map((word, wi) => (
                 <span
                   key={`${rep}-${word}`}
                   className={`whitespace-pre font-mono text-6xl sm:text-8xl font-bold uppercase tracking-tighter ${
-                    rep % 2 === 0 && wi === 1 ? "outline-text-accent" : "outline-text"
+                    rep % 2 === 0 && wi === 1
+                      ? "outline-text-accent"
+                      : "outline-text"
                   }`}
                 >
-                  {word}{"  ·  "}
+                  {word}
+                  {"  ·  "}
                 </span>
-              ))
+              )),
             )}
           </div>
         </div>
@@ -493,7 +541,12 @@ export default function Home() {
         aria-labelledby="contact"
         className="mx-auto w-full max-w-6xl px-5 sm:px-8 pt-24 pb-16"
       >
-        <SectionHeader id="contact" index={6} eyebrow="say hello" title="open a channel" />
+        <SectionHeader
+          id="contact"
+          index={6}
+          eyebrow="say hello"
+          title="open a channel"
+        />
         <Reveal delay={100}>
           <div className="mt-10 section-body">
             <a
@@ -522,7 +575,11 @@ export default function Home() {
         </Reveal>
         <p className="mt-16 font-mono text-xs text-muted">
           {NAME} © {new Date().getFullYear()} — built with Next.js, styled by
-          hand<span className="cursor-block ml-2 w-[0.45em] h-[0.9em]" aria-hidden />
+          hand
+          <span
+            className="cursor-block ml-2 w-[0.45em] h-[0.9em]"
+            aria-hidden
+          />
         </p>
       </footer>
     </div>

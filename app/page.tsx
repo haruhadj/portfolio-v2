@@ -20,6 +20,7 @@ import Link from "next/link";
 const NAME = "Michael Fernandez";
 const GITHUB = "https://github.com/haruhadj";
 const EMAIL = "michaelfernandezskie@gmail.com";
+const PHONE = "0924 481 6674";
 
 /**
  * next/image does NOT apply basePath to a `src` string, so screenshot paths
@@ -556,10 +557,16 @@ export default function Home() {
               <ScrambleText text={EMAIL} startDelay={400} />
             </a>
             <a
+              href="tel:+639244816674"
+              className="mt-4 block font-mono text-lg sm:text-2xl text-muted hover:text-accent transition-colors"
+            >
+              {PHONE}
+            </a>
+            <a
               href={GITHUB}
               target="_blank"
               rel="noreferrer"
-              className="mt-4 block font-mono text-lg sm:text-2xl text-muted hover:text-accent transition-colors"
+              className="mt-2 block font-mono text-lg sm:text-2xl text-muted hover:text-accent transition-colors"
             >
               github.com/haruhadj ↗
             </a>

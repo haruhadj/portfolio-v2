@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 };
 
 const EMAIL = "michaelfernandezskie@gmail.com";
+const PHONE = "0924 481 6674";
 const GITHUB = "https://github.com/haruhadj";
 const SITE = "https://haruhadj.org/portfolio";
 
@@ -131,6 +132,10 @@ export default function Resume() {
           <span className="mx-2">·</span>
           <a href={`mailto:${EMAIL}`} className="hover:text-accent">
             {EMAIL}
+          </a>
+          <span className="mx-2">·</span>
+          <a href="tel:+639244816674" className="hover:text-accent">
+            {PHONE}
           </a>
           <br />
           <a href={GITHUB} className="hover:text-accent">

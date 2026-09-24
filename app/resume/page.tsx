@@ -187,6 +187,32 @@ export default function Resume() {
         ))}
       </dl>
 
+      <SectionTitle>Experience</SectionTitle>
+      <article className="resume-item mt-3">
+        <h3 className="font-mono text-base font-bold text-foreground">
+          OJT Trainee{" "}
+          <span className="font-normal text-muted">
+            — Supply Chain, Lens Warehouse Department
+          </span>
+        </h3>
+        <p className="mt-1 text-sm text-muted">
+          Optodev Inc. (EssilorLuxottica) · September 2025 – February 2026
+          <br />
+          Laguna International Industrial Park, Mamplasan, Biñan City, Laguna
+        </p>
+        <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
+          <Bullet>
+            Maintained warehouse labeling accuracy by replacing rack and dropsy labels, validating locations, and tracking replacement progress.
+          </Bullet>
+          <Bullet>
+            Supported annual inventory through preparation, barcode scanning, data encoding, manual counts, reconciliation, and post-inventory verification.
+          </Bullet>
+          <Bullet>
+            Assisted with receiving and organizing lens stocks, preparing shipment pallets, organizing storage areas, and preparing the warehouse for audits.
+          </Bullet>
+        </ul>
+      </article>
+
       <SectionTitle>Projects</SectionTitle>
       <div className="mt-3 space-y-5">
         {projects.map((p) => (

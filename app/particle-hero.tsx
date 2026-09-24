@@ -57,6 +57,7 @@ export default function ParticleHero({ className = "" }: { className?: string })
     let sampleWidth = 140;
     let sampleHeight = 79;
     let particles: Particle[] = [];
+    let touchStart: { pointerId: number; x: number; y: number } | null = null;
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
@@ -171,10 +172,10 @@ export default function ParticleHero({ className = "" }: { className?: string })
       visual?.style.setProperty("--pointer-y", `${(pointer.y / rect.height) * 100}%`);
     };
     const onPointerLeave = () => { pointer.x = -10000; pointer.y = -10000; };
-    const onPointerDown = (event: PointerEvent) => {
+    const createShockwave = (clientX: number, clientY: number) => {
       const rect = canvas.getBoundingClientRect();
-      const clickX = event.clientX - rect.left;
-      const clickY = event.clientY - rect.top;
+      const clickX = clientX - rect.left;
+      const clickY = clientY - rect.top;
       for (const particle of particles) {
         const dx = particle.x - clickX;
         const dy = particle.y - clickY;
@@ -185,6 +186,22 @@ export default function ParticleHero({ className = "" }: { className?: string })
         particle.vy += (dy / distance) * force;
       }
     };
+    const onPointerDown = (event: PointerEvent) => {
+      createShockwave(event.clientX, event.clientY);
+    };
+    const onTouchPointerDown = (event: PointerEvent) => {
+      touchStart = { pointerId: event.pointerId, x: event.clientX, y: event.clientY };
+    };
+    const onTouchPointerUp = (event: PointerEvent) => {
+      const start = touchStart;
+      touchStart = null;
+      if (!start || start.pointerId !== event.pointerId) return;
+      // Let swipes remain scroll gestures; only a stationary touch creates a wave.
+      if (Math.hypot(event.clientX - start.x, event.clientY - start.y) <= 12) {
+        createShockwave(event.clientX, event.clientY);
+      }
+    };
+    const onTouchPointerCancel = () => { touchStart = null; };
 
     resize();
     // Decode behind the fallback plate, then begin the live field as the
@@ -195,6 +212,10 @@ export default function ParticleHero({ className = "" }: { className?: string })
       canvas.addEventListener("pointermove", onPointerMove, { passive: true });
       canvas.addEventListener("pointerleave", onPointerLeave);
       canvas.addEventListener("pointerdown", onPointerDown, { passive: true });
+    } else {
+      canvas.addEventListener("pointerdown", onTouchPointerDown, { passive: true });
+      canvas.addEventListener("pointerup", onTouchPointerUp, { passive: true });
+      canvas.addEventListener("pointercancel", onTouchPointerCancel, { passive: true });
     }
 
     const resizeObserver = new ResizeObserver(() => { resize(); queueDraw(); });
@@ -225,6 +246,10 @@ export default function ParticleHero({ className = "" }: { className?: string })
         canvas.removeEventListener("pointermove", onPointerMove);
         canvas.removeEventListener("pointerleave", onPointerLeave);
         canvas.removeEventListener("pointerdown", onPointerDown);
+      } else {
+        canvas.removeEventListener("pointerdown", onTouchPointerDown);
+        canvas.removeEventListener("pointerup", onTouchPointerUp);
+        canvas.removeEventListener("pointercancel", onTouchPointerCancel);
       }
     };
   }, []);

@@ -642,7 +642,7 @@ a { color: inherit; text-decoration: none; }
 .hero-visual::before { content: ""; position: absolute; inset: 0; z-index: 0; background: radial-gradient(20rem circle at var(--pointer-x, 68%) var(--pointer-y, 34%), color-mix(in srgb, var(--accent) 20%, transparent), transparent 68%), radial-gradient(34rem circle at 80% 10%, color-mix(in srgb, var(--surface-raised) 82%, transparent), transparent 72%); pointer-events: none; }
 .hero-visual::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(90deg, var(--background) 0%, transparent 24%), linear-gradient(0deg, color-mix(in srgb, var(--background) 24%, transparent), transparent 30%); pointer-events: none; }
 .hero-particle-field { position: absolute; inset: 0; z-index: 1; cursor: crosshair; }
-.particle-hero-canvas { display: block; width: 100%; height: 100%; }
+.particle-hero-canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; }
 .particle-hero-source { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
 /* Spectral Archive: measured from the approved Observation Window comp. */

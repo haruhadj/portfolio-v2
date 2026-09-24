@@ -71,7 +71,9 @@ export default function ParticleHero({ className = "" }: { className?: string })
       sampleHeight = Math.round(sampleWidth / OFFSCREEN_RATIO);
       sampler.width = sampleWidth;
       sampler.height = sampleHeight;
-      const stride = bounds.width < 620 ? 3 : 2;
+      // Keep the compact hero field legible on phones: a two-pixel sampling
+      // stride yields roughly four times the prior mobile particle count.
+      const stride = 2;
       const next: Particle[] = [];
       for (let y = 0; y < sampleHeight; y += stride) {
         for (let x = 0; x < sampleWidth; x += stride) {
@@ -105,7 +107,7 @@ export default function ParticleHero({ className = "" }: { className?: string })
       const pixels = sampleContext.getImageData(0, 0, sampleWidth, sampleHeight).data;
       context.clearRect(0, 0, width, height);
 
-      const stride = width < 620 ? 3 : 2;
+      const stride = 2;
       let particleIndex = 0;
       for (let y = 0; y < sampleHeight; y += stride) {
         for (let x = 0; x < sampleWidth; x += stride) {

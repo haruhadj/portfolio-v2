@@ -192,23 +192,15 @@ export default function Resume() {
         <h3 className="font-mono text-base font-bold text-foreground">
           Supply Chain Intern{" "}
           <span className="font-normal text-muted">
-            — Supply Chain, Lens Warehouse Department
+            — Optodev Inc. (EssilorLuxottica)
           </span>
         </h3>
         <p className="mt-1 text-sm text-muted">
-          Optodev Inc. (EssilorLuxottica) · September 2025 – February 2026
-          <br />
-          Laguna International Industrial Park, Mamplasan, Biñan City, Laguna
+          Lens Warehouse Department · September 2025 – February 2026 · Biñan, Laguna
         </p>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
           <Bullet>
-            Maintained warehouse labeling accuracy by replacing rack and dropsy labels, validating locations, and tracking replacement progress.
-          </Bullet>
-          <Bullet>
-            Supported annual inventory through preparation, barcode scanning, data encoding, manual counts, reconciliation, and post-inventory verification.
-          </Bullet>
-          <Bullet>
-            Assisted with receiving and organizing lens stocks, preparing shipment pallets, organizing storage areas, and preparing the warehouse for audits.
+            Supported annual inventory and audit readiness through warehouse-label verification, barcode scanning, data encoding, stock organization, counts, and reconciliation.
           </Bullet>
         </ul>
       </article>

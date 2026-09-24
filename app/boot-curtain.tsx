@@ -134,12 +134,15 @@ export default function BootCurtain() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    const skipCurtain = () => {
+      signalBootRelease();
+      setDone(true);
+      signalBootDone();
+    };
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
       const id = window.setTimeout(() => {
-        signalBootRelease();
-        setDone(true);
-        signalBootDone();
+        skipCurtain();
       }, 0);
       return () => window.clearTimeout(id);
     }
@@ -153,9 +156,7 @@ export default function BootCurtain() {
       powerPreference: "high-performance",
     });
     if (!canvas || !gl) {
-      signalBootRelease();
-      setDone(true);
-      signalBootDone();
+      skipCurtain();
       return;
     }
     const rendererName = String(gl.getParameter(gl.RENDERER)).toLowerCase();
@@ -163,13 +164,26 @@ export default function BootCurtain() {
     const constrainedCpu = (navigator.hardwareConcurrency || 8) <= 4;
     const lowPowerMode = constrainedRenderer || constrainedCpu;
 
-    const program = createProgram(gl);
+    let program: WebGLProgram;
+    try {
+      program = createProgram(gl);
+    } catch {
+      // The entry animation is decorative; some WebGL2 drivers reject its
+      // shader even when a context is available. Let the portfolio continue.
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      skipCurtain();
+      return;
+    }
     const vertexArray = gl.createVertexArray();
     const quadBuffer = gl.createBuffer();
     const starBuffer = gl.createBuffer();
     if (!vertexArray || !quadBuffer || !starBuffer) {
-      setDone(true);
-      signalBootDone();
+      gl.deleteBuffer(quadBuffer);
+      gl.deleteBuffer(starBuffer);
+      gl.deleteVertexArray(vertexArray);
+      gl.deleteProgram(program);
+      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      skipCurtain();
       return;
     }
 

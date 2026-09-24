@@ -2,6 +2,7 @@
 
 import { Color, Mesh, Program, Renderer, Triangle } from "ogl";
 import { useEffect, useRef } from "react";
+import { waitForBootDone, waitForBootRelease } from "./boot-signal";
 
 const vertexShader = `
 attribute vec2 uv;
@@ -151,10 +152,12 @@ export default function Galaxy({
     }
 
     let frame = 0;
+    let ready = false;
+    let cancelled = false;
     let hidden = document.hidden;
     const onVisibility = () => {
       hidden = document.hidden;
-      if (!hidden && !frame) frame = requestAnimationFrame(render);
+      if (!hidden && ready && !frame) frame = requestAnimationFrame(render);
     };
     const render = (time: number) => {
       frame = 0;
@@ -172,11 +175,20 @@ export default function Galaxy({
       renderer.render({ scene: mesh });
       if (!reduceMotion) frame = requestAnimationFrame(render);
     };
-    frame = requestAnimationFrame(render);
     container.appendChild(gl.canvas);
+    waitForBootRelease().then(() => {
+      if (!cancelled) renderer.render({ scene: mesh });
+    });
+    waitForBootDone().then(() => {
+      ready = true;
+      if (!cancelled && !hidden && !reduceMotion && !frame) {
+        frame = requestAnimationFrame(render);
+      }
+    });
     document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
+      cancelled = true;
       cancelAnimationFrame(frame);
       resizeObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);

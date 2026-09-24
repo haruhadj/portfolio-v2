@@ -1,6 +1,7 @@
 "use client";
 
 import { LuMoon, LuSun } from "react-icons/lu";
+import SpecularButton from "./specular-button";
 
 /**
  * Dark is the default (no data-theme attribute); light sets data-theme="light".
@@ -8,10 +9,15 @@ import { LuMoon, LuSun } from "react-icons/lu";
  */
 export default function ThemeToggle() {
   return (
-    <button
-      type="button"
+    <SpecularButton
+      size="sm"
       aria-label="Toggle color theme"
-      className="text-muted hover:text-accent transition-colors"
+      className="theme-toggle"
+      tint="#182126"
+      tintOpacity={0.72}
+      textColor="#aeb9b5"
+      lineColor="#d4a85c"
+      baseColor="#53615a"
       onClick={() => {
         const root = document.documentElement;
         const next = root.dataset.theme === "light" ? "dark" : "light";
@@ -29,6 +35,6 @@ export default function ThemeToggle() {
     >
       <LuSun className="theme-icon-sun size-4" aria-hidden />
       <LuMoon className="theme-icon-moon size-4" aria-hidden />
-    </button>
+    </SpecularButton>
   );
 }

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Michael Fernandez — full-stack developer";
+export const alt = "Michael Fernandez | full-stack developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -38,7 +38,7 @@ export default function Image() {
             }}
           />
           <div style={{ fontSize: 26, color: ACCENT }}>haruhadj</div>
-          <div style={{ fontSize: 26, color: MUTED }}>— open to work</div>
+          <div style={{ fontSize: 26, color: MUTED }}>Open to work</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -61,7 +61,7 @@ export default function Image() {
               letterSpacing: "-0.01em",
             }}
           >
-            Full-stack developer — type-safe web apps &amp; tuned systems
+            Full-stack developer / type-safe web apps &amp; tuned systems
           </div>
         </div>
 

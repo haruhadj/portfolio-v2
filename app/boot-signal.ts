@@ -7,7 +7,7 @@ export function signalBootDone() {
 
 /**
  * Resolves once BootCurtain has signaled it's done, so effects gated on it
- * don't visibly run underneath the curtain. Falls back after 3s in case no
+ * don't visibly run underneath the curtain. Falls back after 5s in case no
  * curtain is mounted on the page (or something else stops it firing).
  */
 export function waitForBootDone(): Promise<void> {
@@ -17,6 +17,6 @@ export function waitForBootDone(): Promise<void> {
     setTimeout(() => {
       window.removeEventListener(BOOT_DONE_EVENT, done);
       resolve();
-    }, 3000);
+    }, 5000);
   });
 }

@@ -1,11 +1,11 @@
 {
     "schema_version": 2,
-    "commit": "8da0a572c059f7092698399ec9479baa5aa8ef42",
-    "indexed_at": "2026-09-16T08:23:11Z",
+    "commit": "a2468cd0657948f2d55554b3d77fc98cb4086d30",
+    "indexed_at": "2026-09-24T03:12:25Z",
     "project": "home-haruhadj-portfolio-v2",
-    "nodes": 216,
-    "edges": 363,
-    "original_size": 2686976,
-    "compressed_size": 270850,
+    "nodes": 3052,
+    "edges": 6181,
+    "original_size": 11337728,
+    "compressed_size": 2041959,
     "compression_level": 3
 }

@@ -17,6 +17,7 @@ import {
   SiVercel,
   SiZod,
 } from "react-icons/si";
+import { TbBrandOpenai } from "react-icons/tb";
 
 type Entry = { icon: IconType; color?: string };
 
@@ -41,6 +42,8 @@ const icons: Record<string, Entry> = {
   docker: { icon: SiDocker, color: "#2496ed" },
   "ci/cd": { icon: SiGithubactions, color: "#2088ff" },
   "claude code": { icon: SiClaude, color: "#da7756" },
+  // Codex uses OpenAI's knot mark as its product icon.
+  codex: { icon: TbBrandOpenai },
   python: { icon: SiPython, color: "#ffd43b" },
 };
 

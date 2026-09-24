@@ -1,13 +1,20 @@
 "use client";
 
+import SpecularButton from "../specular-button";
+
 export default function PrintButton() {
   return (
-    <button
-      type="button"
+    <SpecularButton
+      size="sm"
       onClick={() => window.print()}
-      className="inline-flex items-center gap-2 border border-accent px-4 py-2 text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
+      tint="#182126"
+      tintOpacity={0.82}
+      textColor="#edf1ed"
+      lineColor="#d4a85c"
+      baseColor="#53615a"
+      className="resume-print-button"
     >
       save as PDF ↓
-    </button>
+    </SpecularButton>
   );
 }

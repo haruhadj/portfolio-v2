@@ -1,594 +1,142 @@
-import BootCurtain from "./boot-curtain";
-import CustomCursor from "./custom-cursor";
-import HeroParallax from "./hero-parallax";
-import Magnetic from "./magnetic";
-import Parallax from "./parallax";
-import ParticleHero from "./particle-hero";
-import Reveal from "./reveal";
-import SectionRail from "./section-rail";
-import SplitText from "./split-text";
-import ScrambleText from "./scramble-text";
-import ScrollProgress from "./scroll-progress";
-import SpotlightCard from "./spotlight-card";
-import TechIcon from "./tech-icon";
-import TiltCard from "./tilt-card";
-import TypedPrompt from "./typed-prompt";
-import UtilityCluster from "./utility-cluster";
 import Image from "next/image";
 import Link from "next/link";
+import ArchiveMotion from "./archive-motion";
+import BootCurtain from "./boot-curtain";
+import Galaxy from "./galaxy";
+import ParticleHero from "./particle-hero";
+import Reveal from "./reveal";
+import TechIcon from "./tech-icon";
+import { FiArrowUpRight, FiFileText, FiGithub, FiMail } from "react-icons/fi";
 
-const NAME = "Michael Fernandez";
 const GITHUB = "https://github.com/haruhadj";
 const EMAIL = "michaelfernandezskie@gmail.com";
-const PHONE = "0924 481 6674";
-
-/**
- * next/image does NOT apply basePath to a `src` string, so screenshot paths
- * must carry it explicitly. See docs/PROJECT-NOTES.md.
- */
 const BASE = "/portfolio";
 
 type Deployment = {
   name: string;
   summary: string;
   stack: readonly string[];
-  /** Public URL, when there is one. Self-hosted builds link to source only. */
   live?: string;
   repo: string;
-  /** Filename in public/shots — omit and the card renders text-only. */
   shot?: string;
 };
 
 const deployments: readonly Deployment[] = [
-  {
-    name: "tsugi",
-    summary:
-      "Fast anime/manga recommendation sharing. Sign in, pick one title or several, score them, and get a shareable link with a rich social preview — in under 10 seconds. Anyone can open that link; only creating needs an account.",
-    stack: ["Next.js", "TypeScript", "Supabase"],
-    live: "https://tsugi.haruhadj.org/feed",
-    repo: `${GITHUB}/tsugi`,
-    shot: "tsugi-showcase.png",
-  },
-  {
-    name: "nekostream",
-    summary:
-      "Self-hosted anime tracker — browse and search via AniList, build episode lists from Nyaa.si RSS, and sync watch progress to AniList and MyAnimeList at once. Dockerized for ARM64.",
-    stack: ["Next.js", "TypeScript", "Docker"],
-    repo: `${GITHUB}/nekostream`,
-    shot: "nekostream-img.png",
-  },
-  {
-    name: "rss2mail",
-    summary:
-      "RSS feed monitor that pushes new items to Gmail or Facebook Messenger on a configurable interval — full WebUI for feeds, settings, and logs, with Docker Compose deployment.",
-    stack: ["TypeScript", "Python", "Docker"],
-    repo: `${GITHUB}/rss2mail`,
-  },
-  {
-    name: "skillforge",
-    summary:
-      "A multi-app web platform — independent learning modules sharing a common scoring and progression layer, served under a single roof.",
-    stack: ["Next.js", "TypeScript"],
-    live: "https://skillforge.haruhadj.org/",
-    repo: `${GITHUB}/skillforge`,
-    shot: "skillforge.png",
-  },
-  {
-    name: "secure-qr-attendance",
-    summary:
-      "QR-code attendance system built for real classrooms — secure check-ins without the roll call.",
-    stack: ["Next.js", "TypeScript"],
-    live: "https://secure-qr-attendance.vercel.app",
-    repo: `${GITHUB}/secure-qr-attendance`,
-    shot: "qr-attendance.png",
-  },
-  {
-    name: "payroll-system",
-    summary:
-      "Payroll management system — employee records, computations, and payslips handled end to end.",
-    stack: ["TypeScript"],
-    live: "https://payroll-system-fawn.vercel.app",
-    repo: `${GITHUB}/payroll-system`,
-    shot: "payroll.png",
-  },
+  { name: "tsugi", summary: "Fast anime and manga recommendation sharing. Choose one title or several, score them, and get a rich shareable link in under 10 seconds.", stack: ["Next.js", "TypeScript", "Supabase"], live: "https://tsugi.haruhadj.org/feed", repo: `${GITHUB}/tsugi`, shot: "tsugi-showcase.png" },
+  { name: "nekostream", summary: "Self-hosted anime tracker with AniList search, Nyaa.si RSS episode lists, and synced AniList and MyAnimeList progress.", stack: ["Next.js", "TypeScript", "Docker"], repo: `${GITHUB}/nekostream`, shot: "nekostream-img.png" },
+  { name: "rss2mail", summary: "RSS feed monitor that sends new items to Gmail or Facebook Messenger, with a WebUI for feeds, settings, and logs.", stack: ["TypeScript", "Python", "Docker"], repo: `${GITHUB}/rss2mail` },
+  { name: "skillforge", summary: "A multi-app learning platform with independent modules sharing one scoring and progression layer.", stack: ["Next.js", "TypeScript"], live: "https://skillforge.haruhadj.org/", repo: `${GITHUB}/skillforge`, shot: "skillforge.png" },
+  { name: "secure-qr-attendance", summary: "QR-code attendance system for real classrooms, with secure check-ins that remove the roll call.", stack: ["Next.js", "TypeScript"], live: "https://secure-qr-attendance.vercel.app", repo: `${GITHUB}/secure-qr-attendance`, shot: "qr-attendance.png" },
+  { name: "payroll-system", summary: "Payroll management for employee records, computations, and payslips from start to finish.", stack: ["TypeScript"], live: "https://payroll-system-fawn.vercel.app", repo: `${GITHUB}/payroll-system`, shot: "payroll.png" },
+  { name: "faculty-evaluation-system", summary: "Role-aware academic evaluation for Our Lady of Assumption College, including secure student workflows, period management, and reporting.", stack: ["Next.js", "Hono", "Supabase", "Drizzle ORM"], live: "https://faculty-evaluation-system-zeta.vercel.app/", repo: `${GITHUB}/faculty-evaluation-system`, shot: "faculty-demo.png" },
 ];
 
 const processes = [
-  {
-    name: "reddit-ai-summarizer-extension",
-    summary:
-      "Browser extension (Chrome + Firefox) that adds a `Summarize with AI` button to Reddit post threads. Summarizes the post plus top comments using your own API key.",
-    lang: "TS",
-  },
-  {
-    name: "trace-dsa-study",
-    summary:
-      "DSA study companion — 17-topic roadmap, 21 interactive visualizers, 52 curated problems",
-    lang: "TS",
-  },
-  {
-    name: "webdav-server",
-    summary:
-      "Tiny self-hosted WebDAV server — single static Go binary in a ~20MB Docker image",
-    lang: "GO",
-  },
-  {
-    name: "streamsync-yt",
-    summary:
-      "YouTube music request system for streamers — live queue sync and OBS overlay",
-    lang: "TS",
-  },
-  {
-    name: "grandmaster-chess",
-    summary:
-      "Responsive chess with single-player AI and real-time multiplayer via WebSockets",
-    lang: "TS",
-  },
-  {
-    name: "core-dsa",
-    summary:
-      "Data structures & algorithms, implemented from scratch in TypeScript",
-    lang: "TS",
-  },
+  { name: "reddit-ai-summarizer-extension", summary: "Browser extension that summarizes a Reddit post and its top comments with the visitor's own API key.", lang: "TypeScript" },
+  { name: "trace-dsa-study", summary: "DSA study companion with 17 topics, 21 interactive visualizers, and 52 curated problems.", lang: "TypeScript" },
+  { name: "webdav-server", summary: "Tiny self-hosted WebDAV server, packaged as one static Go binary in a small Docker image.", lang: "Go" },
+  { name: "streamsync-yt", summary: "YouTube music requests for streamers, with a live queue and OBS overlay.", lang: "TypeScript" },
+  { name: "grandmaster-chess", summary: "Responsive chess with single-player AI and real-time multiplayer over WebSockets.", lang: "TypeScript" },
+  { name: "core-dsa", summary: "Data structures and algorithms implemented from scratch in TypeScript.", lang: "TypeScript" },
 ] as const;
 
-const specs = [
-  { label: "frontend", items: ["Next.js", "React", "Tailwind CSS"] },
-  { label: "backend", items: ["Hono", "TypeScript", "Zod", "better-auth"] },
-  { label: "database", items: ["PostgreSQL", "Drizzle ORM"] },
-  { label: "deploy", items: ["Vercel", "Cloudflare", "Docker", "CI/CD"] },
-  {
-    label: "workflow",
-    items: ["Claude Code", "agentic pipelines", "local LLM infra"],
-  },
-  { label: "learning", items: ["React Native", "Python"] },
+const capabilityGroups = [
+  { title: "Application", items: ["Next.js", "React", "TypeScript", "Tailwind CSS"] },
+  { title: "Systems", items: ["Hono", "Zod", "PostgreSQL", "Drizzle ORM"] },
+  { title: "AI workflow", items: ["Claude Code", "Codex"] },
+  { title: "Delivery", items: ["Docker", "Vercel", "Cloudflare", "CI/CD"] },
 ] as const;
 
-const stream = [
-  "typescript",
-  "next.js",
-  "react",
-  "hono",
-  "drizzle",
-  "postgresql",
-  "zod",
-  "better-auth",
-  "tailwind",
-  "vercel",
-  "cloudflare",
-  "docker",
-  "claude code",
-] as const;
+const featuredNames = ["tsugi", "skillforge", "faculty-evaluation-system", "nekostream"] as const;
+const featured = featuredNames.flatMap((name) => deployments.filter((project) => project.name === name));
+const projectIndex = deployments.filter((project) => !featuredNames.includes(project.name as (typeof featuredNames)[number]));
 
-const mantra = ["build", "tune", "ship"] as const;
-
-/** Left-edge rail — ids must match the section headings they point at. */
-const railLinks = [
-  { id: "about", label: "about" },
-  { id: "deployments", label: "work" },
-  { id: "processes", label: "tools" },
-  { id: "stack", label: "stack" },
-  { id: "contact", label: "contact" },
-] as const;
-
-/** Two layers, not five — the grid sets the register, one blob warms it. */
-function AmbientBackground() {
-  return (
-    <div aria-hidden className="fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-grid opacity-25" />
-      <div className="glow-blob absolute -top-40 left-1/4 size-[36rem] rounded-full bg-accent/10 blur-3xl" />
-    </div>
-  );
-}
-
-/**
- * Numbered header on an asymmetric grid: index and eyebrow sit in a narrow
- * left gutter aligned to the rail's axis, title in the wide column. `split`
- * opts a single heading into the letter-stagger — used sparingly, since the
- * same flourish on every heading is what makes motion read as generated.
- */
-function SectionHeader({
-  id,
-  index,
-  eyebrow,
-  title,
-  split = false,
-}: {
-  id: string;
-  index: number;
-  eyebrow: string;
-  title: string;
-  split?: boolean;
-}) {
-  return (
-    <Reveal>
-      <div className="grid gap-3 lg:grid-cols-[9rem_1fr] lg:gap-10">
-        <div className="font-mono text-xs sm:text-sm lg:pt-4">
-          <span className="text-accent">{String(index).padStart(2, "0")}</span>
-          <span className="mx-2 text-muted">/</span>
-          <span className="text-muted lg:block lg:mx-0 lg:mt-1">{eyebrow}</span>
-        </div>
-        <h2
-          id={id}
-          aria-label={title}
-          className="scroll-mt-28 font-mono text-5xl sm:text-7xl lg:text-8xl font-bold uppercase tracking-tighter text-foreground"
-        >
-          {split ? <SplitText text={title} /> : title}
-        </h2>
-      </div>
-    </Reveal>
-  );
+function ProjectLinks({ project }: { project: Deployment }) {
+  return <div className="orbit-project-links">
+    {project.live && <a href={project.live} target="_blank" rel="noreferrer">View site <FiArrowUpRight aria-hidden /></a>}
+    <a href={project.repo} target="_blank" rel="noreferrer">Source <FiGithub aria-hidden /></a>
+  </div>;
 }
 
 export default function Home() {
-  return (
-    <div id="top" className="flex-1 w-full pb-14 lg:pb-0">
-      <BootCurtain />
-      <ScrollProgress />
-      <CustomCursor />
-      <SectionRail links={railLinks} mark="haruhadj" />
-      <UtilityCluster github={GITHUB} />
-      <AmbientBackground />
-      <div aria-hidden className="noise" />
-
-      {/* hero — full-viewport particle field */}
-      <HeroParallax className="relative h-[100svh]">
-        <div data-hero="field" className="absolute inset-0">
-          <ParticleHero className="size-full" />
-        </div>
-
-        <div
-          data-hero="top"
-          className="pointer-events-none absolute inset-x-0 top-[16%] flex justify-center px-5"
-        >
-          <div className="animate-fade-up">
-            <TypedPrompt />
+  return <div id="top" className="portfolio-shell portfolio-v3">
+    <BootCurtain />
+    <Galaxy focal={[0.52, 0.42]} density={0.82} hueShift={205} glowIntensity={0.28} saturation={0.42} starSpeed={0.22} twinkleIntensity={0.18} rotationSpeed={0.018} repulsionStrength={0.9} />
+    <div className="orbit-atmosphere" aria-hidden />
+    <ArchiveMotion />
+    <header className="orbit-header">
+      <nav className="orbit-nav" aria-label="Main navigation">
+        <a href="#work" className="is-active">Work</a>
+        <a href="#about">About</a>
+        <a href="#stack">Stack</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <Link href="/resume" className="orbit-resume">Résumé <FiArrowUpRight aria-hidden /></Link>
+    </header>
+    <main>
+      <section className="orbit-hero" aria-labelledby="hero-title">
+        <div className="orbit-hero-copy">
+          <h1 id="hero-title">Michael Fernandez.</h1>
+          <p className="orbit-summary">I use AI to move faster from idea to working software—while staying accountable for the design, decisions, and systems that ship.</p>
+          <div className="orbit-actions">
+            <a href="#work" className="orbit-button orbit-button-primary">View work</a>
+            <Link href="/resume" className="orbit-button orbit-button-secondary"><FiFileText aria-hidden /> Read résumé</Link>
           </div>
         </div>
-
-        <div
-          data-hero="bottom"
-          className="pointer-events-none absolute inset-x-0 bottom-[14%] flex flex-col items-center gap-4 px-5"
-        >
-          <h1 className="animate-fade-up text-center font-mono text-3xl sm:text-5xl font-bold tracking-tighter text-foreground [animation-delay:300ms]">
-            {NAME}
-          </h1>
-          <p className="animate-fade-up max-w-xl text-center text-base sm:text-lg text-muted leading-relaxed [animation-delay:500ms]">
-            Full-stack developer building{" "}
-            <span className="text-foreground">type-safe web apps</span> and{" "}
-            <span className="text-foreground">tuned systems</span> — from schema
-            to silicon, with agentic AI in the loop.
-          </p>
+        <div className="orbit-particle" role="img" aria-label="Interactive particle study driven by the Bad Apple video">
+          <ParticleHero className="orbit-particle-field" />
         </div>
-
-        <div className="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center">
-          <p className="scroll-hint font-mono text-xs text-muted">scroll ↓</p>
+      </section>
+      <section id="work" className="orbit-section orbit-work" aria-labelledby="work-title">
+        <Reveal><div className="orbit-section-heading"><h2 id="work-title">Selected work</h2><p>Real products with live deployments, source, and concrete interface evidence.</p></div></Reveal>
+        <div className="orbit-project-grid">
+          {featured.map((project, index) => <Reveal key={project.name} delay={index * 70} className={`orbit-project-wrap orbit-project-${index + 1}`}>
+            <article className="orbit-project">
+              {project.shot && <div className="orbit-project-media"><Image src={`${BASE}/shots/${project.shot}`} alt={`${project.name} interface`} fill sizes="(min-width: 1024px) 58vw, 100vw" /></div>}
+              <div className="orbit-project-copy">
+                <h3>{project.name}</h3><p>{project.summary}</p>
+                <ul className="tech-list" aria-label={`${project.name} technology`}>
+                  {project.stack.map((item) => <li key={item}><TechIcon name={item} />{item}</li>)}
+                </ul>
+                <ProjectLinks project={project} />
+              </div>
+            </article>
+          </Reveal>)}
         </div>
-      </HeroParallax>
-
-      <main className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-        {/* about */}
-        <section aria-labelledby="about" className="pt-24 pb-16">
-          <SectionHeader
-            id="about"
-            index={1}
-            eyebrow="who I am"
-            title="about"
-            split
-          />
-          <Reveal delay={100}>
-            <p className="mt-10 max-w-[58ch] text-base sm:text-lg text-muted leading-relaxed section-body">
-              Full-stack developer building type-safe TypeScript apps from
-              schema to deployment. I leverage AI-agentic workflows to ship
-              fast, paired with rigorous failure-mode analysis to ensure
-              production resilience. Early-career software engineer actively
-              seeking a junior or entry-level full-stack role.
-            </p>
-          </Reveal>
-        </section>
-
-        {/* stack stream */}
-        <Reveal className="mx-[calc(50%-50vw)]">
-          <div className="marquee mt-14 overflow-hidden border-y border-border-line py-4">
-            <div className="marquee-track flex items-center gap-12">
-              {[...stream, ...stream].map((item, i) => (
-                <span
-                  key={`${item}-${i}`}
-                  aria-hidden={i >= stream.length}
-                  className="flex items-center gap-2.5 font-mono text-sm text-muted whitespace-nowrap"
-                >
-                  <TechIcon name={item} className="size-6 text-accent-dim" />
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </Reveal>
-
-        {/* deployments — featured apps */}
-        <section aria-labelledby="deployments" className="pt-24 pb-24">
-          <SectionHeader
-            id="deployments"
-            index={2}
-            eyebrow={`featured · ${deployments.length} builds`}
-            title="deployments"
-          />
-          <div className="mt-10 grid gap-6 section-body">
-            {deployments.map((d, i) => (
-              <Reveal key={d.name} delay={i * 100}>
-                <TiltCard>
-                  <SpotlightCard className="group relative border border-border-line bg-panel/80 p-6 sm:p-10 transition-colors duration-300 hover:border-accent-dim">
-                    <span
-                      aria-hidden
-                      className="outline-text pointer-events-none absolute right-4 top-2 font-mono text-7xl sm:text-9xl font-bold select-none opacity-60"
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <article className="relative">
-                      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono">
-                        <h3 className="text-2xl sm:text-4xl font-bold tracking-tight text-foreground group-hover:text-accent transition-colors">
-                          {d.name}
-                        </h3>
-                        {d.live ? (
-                          <span className="inline-flex items-center gap-1.5 text-ok text-xs">
-                            <span
-                              className="pulse-dot size-1.5 rounded-full bg-ok"
-                              aria-hidden
-                            />
-                            live
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1.5 text-muted text-xs">
-                            <span
-                              className="size-1.5 rounded-full border border-muted"
-                              aria-hidden
-                            />
-                            self-hosted
-                          </span>
-                        )}
-                      </div>
-                      <div className="mt-4 flex flex-col gap-6 lg:flex-row lg:items-start">
-                        <p className="max-w-2xl flex-1 text-sm sm:text-base text-muted leading-relaxed">
-                          {d.summary}
-                        </p>
-                        {d.shot && (
-                          <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden border border-border-line bg-panel-2 lg:w-72">
-                            {/* extra vertical headroom so the parallax drift never exposes an edge */}
-                            <Parallax className="absolute -inset-y-4 inset-x-0">
-                              <Image
-                                src={`${BASE}/shots/${d.shot}`}
-                                alt={`${d.name} interface screenshot`}
-                                fill
-                                sizes="(min-width: 1024px) 18rem, 100vw"
-                                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                              />
-                            </Parallax>
-                          </div>
-                        )}
-                      </div>
-                      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-sm">
-                        <Magnetic>
-                          <a
-                            href={d.live ?? d.repo}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex items-center gap-1 border border-accent px-4 py-2 text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
-                          >
-                            {d.live ? "open" : "source"}{" "}
-                            <span className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                              ↗
-                            </span>
-                          </a>
-                        </Magnetic>
-                        {d.live && (
-                          <a
-                            href={d.repo}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-muted hover:text-foreground transition-colors"
-                          >
-                            source
-                          </a>
-                        )}
-                        <span className="flex-1" />
-                        {d.stack.map((s) => (
-                          <span
-                            key={s}
-                            className="inline-flex items-center gap-2 text-muted text-sm"
-                          >
-                            <TechIcon name={s} className="size-5" />
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </article>
-                  </SpotlightCard>
-                </TiltCard>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        {/* process list — games */}
-        <section aria-labelledby="processes" className="pb-24">
-          <SectionHeader
-            id="processes"
-            index={3}
-            eyebrow="tools · experiments"
-            title="process list"
-          />
-          <Reveal delay={100}>
-            <ul className="mt-10 border border-border-line divide-y divide-border-line bg-panel-2/40 section-body">
-              {processes.map((p) => (
-                <li key={p.name}>
-                  <a
-                    href={`${GITHUB}/${p.name}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="wipe-row group flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 px-5 py-4 transition-all duration-300 hover:pl-8"
-                  >
-                    <span className="font-mono text-sm text-foreground shrink-0 sm:w-60 transition-colors duration-300 group-hover:text-background">
-                      ▸ {p.name}
-                    </span>
-                    <span className="flex-1 text-sm text-muted transition-colors duration-300 group-hover:text-background/75">
-                      {p.summary}
-                    </span>
-                    <span className="hidden sm:inline font-mono text-xs text-muted transition-colors duration-300 group-hover:text-background/75">
-                      {p.lang}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-          <Reveal delay={200}>
-            <p className="mt-4 font-mono text-xs text-muted section-body">
-              … and more on{" "}
-              <a
-                href={`${GITHUB}?tab=repositories`}
-                target="_blank"
-                rel="noreferrer"
-                className="text-accent hover:underline underline-offset-4"
-              >
-                github ↗
-              </a>
-            </p>
-          </Reveal>
-        </section>
-
-        {/* stack — spec sheet */}
-        <section aria-labelledby="stack" className="pb-24">
-          <SectionHeader
-            id="stack"
-            index={4}
-            eyebrow="tools of the trade"
-            title="spec sheet"
-          />
-          <Reveal delay={100}>
-            <dl className="mt-10 border border-border-line divide-y divide-border-line font-mono text-sm bg-panel-2/40 section-body">
-              {specs.map((s) => (
-                <div
-                  key={s.label}
-                  className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 px-5 py-4"
-                >
-                  <dt className="text-[11px] uppercase tracking-widest text-muted sm:w-32 shrink-0">
-                    {s.label}
-                  </dt>
-                  <dd className="flex flex-wrap gap-2 text-foreground">
-                    {s.items.map((item) => (
-                      <span
-                        key={item}
-                        className="inline-flex items-center gap-2 border border-border-line bg-panel px-3 py-1.5 text-sm transition-colors hover:border-accent-dim hover:text-accent"
-                      >
-                        <TechIcon name={item} className="size-5" />
-                        {item}
-                      </span>
-                    ))}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-        </section>
-
-        {/* beyond code */}
-        <section aria-labelledby="tuning" className="pb-24">
-          <SectionHeader
-            id="tuning"
-            index={5}
-            eyebrow="off the clock"
-            title="beyond code"
-          />
-          <Reveal delay={100}>
-            <p className="mt-10 max-w-[58ch] text-base sm:text-lg text-muted leading-relaxed section-body">
-              I treat my machines the way I treat my code: measured, tuned, and
-              predictable. PC hardware tuning and undervolting; local LLM
-              infrastructure for offline, low-latency coding; agentic workflows
-              with strict schemas as guardrails — the toolchain catches its own
-              errors and self-corrects.
-            </p>
-          </Reveal>
-        </section>
-      </main>
-
-      {/* mantra marquee */}
-      <Reveal>
-        <div
-          className="marquee overflow-hidden border-y border-border-line py-5"
-          aria-hidden
-        >
-          <div className="marquee-track-slow flex items-center">
-            {Array.from({ length: 4 }, (_, rep) =>
-              mantra.map((word, wi) => (
-                <span
-                  key={`${rep}-${word}`}
-                  className={`whitespace-pre font-mono text-6xl sm:text-8xl font-bold uppercase tracking-tighter ${
-                    rep % 2 === 0 && wi === 1
-                      ? "outline-text-accent"
-                      : "outline-text"
-                  }`}
-                >
-                  {word}
-                  {"  ·  "}
-                </span>
-              )),
-            )}
-          </div>
+        <Reveal><div className="orbit-more-work" aria-label="More projects"><h3>More builds</h3>
+          {projectIndex.map((project) => <article key={project.name}>
+            <div><h4>{project.name}</h4><p>{project.summary}</p></div><ProjectLinks project={project} />
+          </article>)}
+        </div></Reveal>
+      </section>
+      <section id="about" className="orbit-section orbit-about" aria-labelledby="about-title">
+        <Reveal><div className="orbit-about-copy"><h2 id="about-title">I care about the seams.</h2><p>I build type-safe applications with careful attention to contracts, data, deployment, and the failures that show up after launch. AI helps me explore and iterate faster, while I stay accountable for the architecture, decisions, and what ships.</p></div></Reveal>
+        <div className="orbit-principles" aria-label="Engineering focus"><span>Typed contracts</span><span>Production workflows</span><span>AI-assisted building</span><span>Measured infrastructure</span></div>
+      </section>
+      <section id="stack" className="orbit-section orbit-stack" aria-labelledby="stack-title">
+        <Reveal><div className="orbit-section-heading"><h2 id="stack-title">Across the stack</h2><p>Product surfaces, backend boundaries, data models, and the delivery path that connects them.</p></div></Reveal>
+          <div className="orbit-capabilities">{capabilityGroups.map((group) => <section key={group.title} className="orbit-capability" aria-label={group.title}>
+            <h3>{group.title}</h3><div>{group.items.map((item) => <span key={item}><TechIcon name={item} />{item}</span>)}</div>
+          </section>)}</div>
+      </section>
+      <section id="experiments" className="orbit-section orbit-experiments" aria-labelledby="experiments-title">
+        <Reveal><div className="orbit-section-heading"><h2 id="experiments-title">Experiments</h2><p>Smaller tools and studies that sharpen the next build.</p></div></Reveal>
+        <div className="orbit-experiment-list">{processes.map((project, index) => <Reveal key={project.name} delay={(index % 2) * 60}>
+          <a className="orbit-experiment" href={`${GITHUB}/${project.name}`} target="_blank" rel="noreferrer">
+            <span>{project.lang}</span><h3>{project.name}</h3><p>{project.summary}</p><FiArrowUpRight aria-hidden />
+          </a>
+        </Reveal>)}</div>
+      </section>
+    </main>
+    <footer id="contact" className="orbit-contact" aria-labelledby="contact-title">
+      <Reveal><h2 id="contact-title">Let&apos;s build something dependable.</h2><p>I&apos;m actively looking for a junior or entry-level full-stack engineering role.</p>
+        <a className="orbit-email" href={`mailto:${EMAIL}`}>{EMAIL}<FiArrowUpRight aria-hidden /></a>
+        <div className="orbit-contact-actions">
+          <a className="orbit-button orbit-button-primary" href={`mailto:${EMAIL}`}><FiMail aria-hidden /> Email Michael</a>
+          <a className="orbit-button orbit-button-secondary" href={GITHUB} target="_blank" rel="noreferrer"><FiGithub aria-hidden /> GitHub profile</a>
         </div>
       </Reveal>
-
-      {/* contact */}
-      <footer
-        aria-labelledby="contact"
-        className="mx-auto w-full max-w-6xl px-5 sm:px-8 pt-24 pb-16"
-      >
-        <SectionHeader
-          id="contact"
-          index={6}
-          eyebrow="say hello"
-          title="open a channel"
-        />
-        <Reveal delay={100}>
-          <div className="mt-10 section-body">
-            <a
-              href={`mailto:${EMAIL}`}
-              className="block break-all font-mono text-xl sm:text-3xl md:text-4xl text-foreground hover:text-accent transition-colors"
-            >
-              <ScrambleText text={EMAIL} startDelay={400} />
-            </a>
-            <a
-              href="tel:+639244816674"
-              className="mt-4 block font-mono text-lg sm:text-2xl text-muted hover:text-accent transition-colors"
-            >
-              {PHONE}
-            </a>
-            <a
-              href={GITHUB}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-2 block font-mono text-lg sm:text-2xl text-muted hover:text-accent transition-colors"
-            >
-              github.com/haruhadj ↗
-            </a>
-            <Magnetic className="mt-8">
-              <Link
-                href="/resume"
-                className="inline-flex items-center gap-2 border border-accent px-5 py-3 font-mono text-sm text-accent transition-colors duration-300 hover:bg-accent hover:text-background"
-              >
-                read my résumé →
-              </Link>
-            </Magnetic>
-          </div>
-        </Reveal>
-        <p className="mt-16 font-mono text-xs text-muted">
-          {NAME} © {new Date().getFullYear()} — built with Next.js, styled by
-          hand
-          <span
-            className="cursor-block ml-2 w-[0.45em] h-[0.9em]"
-            aria-hidden
-          />
-        </p>
-      </footer>
-    </div>
-  );
+      <p className="footer-note">© {new Date().getFullYear()} Michael Fernandez. Built with Next.js.</p>
+    </footer>
+  </div>;
 }

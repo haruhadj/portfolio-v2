@@ -32,6 +32,17 @@ const skills = [
 
 const projects = [
   {
+    name: "Faculty Evaluation System",
+    tagline: "Role-aware academic evaluation platform",
+    stack: "Next.js · Hono · Supabase · Drizzle ORM",
+    url: "https://faculty-evaluation-system-zeta.vercel.app/",
+    label: "faculty-evaluation-system-zeta.vercel.app",
+    bullets: [
+      "Built a role-aware faculty evaluation platform for Our Lady of Assumption College, with administrator, faculty, and student workspaces protected by caller-scoped authentication.",
+      "Designed typed request contracts and PostgreSQL workflows for evaluation periods, assignments, immutable submissions, and report exports.",
+    ],
+  },
+  {
     name: "NekoStream",
     tagline: "Self-hosted anime tracker",
     stack: "Next.js · PostgreSQL · Docker",
@@ -116,6 +127,12 @@ export default function Resume() {
         >
           ← back to portfolio
         </Link>
+        <Link
+          href="/resume/general"
+          className="text-muted transition-colors hover:text-accent"
+        >
+          general resume
+        </Link>
         <span className="flex-1" />
         <PrintButton />
       </div>
@@ -182,8 +199,8 @@ export default function Resume() {
               </span>
             </h3>
             <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
-              {p.bullets.map((b) => (
-                <Bullet key={b}>{b} {p.url && (
+              {p.bullets.map((b, index) => (
+                <Bullet key={b}>{b} {p.url && index === 0 && (
                 <>
                   <span className="text-muted">· </span>
                   <a

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   // origin here resolves og:image to /opengraph-image (404) instead of
   // /portfolio/opengraph-image.
   metadataBase: new URL("https://haruhadj.org/portfolio"),
-  title: "Michael Fernandez — full-stack developer",
+  title: "Michael Fernandez | full-stack developer",
   description: DESCRIPTION,
   authors: [{ name: "Michael Fernandez", url: "https://github.com/haruhadj" }],
   creator: "Michael Fernandez",
@@ -30,12 +30,12 @@ export const metadata: Metadata = {
     type: "website",
     url: "https://haruhadj.org/portfolio",
     siteName: "Michael Fernandez",
-    title: "Michael Fernandez — full-stack developer",
+    title: "Michael Fernandez | full-stack developer",
     description: DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Michael Fernandez — full-stack developer",
+    title: "Michael Fernandez | full-stack developer",
     description: DESCRIPTION,
   },
 };

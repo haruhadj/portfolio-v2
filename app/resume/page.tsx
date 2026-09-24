@@ -190,7 +190,7 @@ export default function Resume() {
       <SectionTitle>Experience</SectionTitle>
       <article className="resume-item mt-3">
         <h3 className="font-mono text-base font-bold text-foreground">
-          OJT Trainee{" "}
+          Supply Chain Intern{" "}
           <span className="font-normal text-muted">
             — Supply Chain, Lens Warehouse Department
           </span>

@@ -120,10 +120,10 @@ export default function GeneralResume() {
         Computer Science graduate with hands-on experience in software projects and Supply Chain operations within the Lens Warehouse department. Detail-oriented when working with inventory, records, documentation, and technical tools. Interested in entry-level technology support, operations, administrative support, and other roles where dependable digital skills are useful.
       </p>
 
-      <SectionTitle>OJT Experience</SectionTitle>
+      <SectionTitle>Internship Experience</SectionTitle>
       <article className="resume-item mt-3">
         <h3 className="font-mono text-base font-bold text-foreground">
-          OJT Trainee{" "}
+          Supply Chain Intern{" "}
           <span className="font-normal text-muted">
             - Supply Chain, Lens Warehouse Department
           </span>

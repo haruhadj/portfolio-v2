@@ -28,7 +28,7 @@ const strengths = [
   },
   {
     label: "AI & automation",
-    items: "n8n automations, Claude, Claude Code, Codex, AI tools, and prompt engineering",
+    items: "n8n automations, Claude Code, Codex, AI tools, and prompt engineering",
   },
 ];
 

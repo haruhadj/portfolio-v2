@@ -31,7 +31,7 @@ const skills = [
   {
     label: "AI & Automation",
     items:
-      "n8n automations, Claude, Claude Code, Codex, AI tools, prompt engineering",
+      "n8n automations, Claude Code, Codex, AI tools, prompt engineering",
   },
 ];
 

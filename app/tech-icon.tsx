@@ -43,7 +43,6 @@ const icons: Record<string, Entry> = {
   docker: { icon: SiDocker, color: "#2496ed" },
   "ci/cd": { icon: SiGithubactions, color: "#2088ff" },
   "n8n automations": { icon: SiN8N, color: "#ea4b71" },
-  claude: { icon: SiClaude, color: "#da7756" },
   "claude code": { icon: SiClaude, color: "#da7756" },
   // Codex uses OpenAI's knot mark as its product icon.
   codex: { icon: TbBrandOpenai },

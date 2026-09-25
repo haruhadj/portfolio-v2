@@ -18,7 +18,7 @@ deployment, self-hosted on my own ARM64 infrastructure. BS Computer Science
 
 | | |
 | --- | --- |
-| **Languages** | TypeScript, JavaScript (ES6+), Python, Go, SQL |
+| **Languages** | TypeScript, JavaScript (ES6+), Python, C++, SQL |
 | **Web** | Next.js, React, Node.js, Hono, Tailwind CSS, Zod, better-auth |
 | **Data** | PostgreSQL, SQLite, Drizzle ORM |
 | **Infrastructure** | Docker, Linux (ARM64), Cloudflare DNS & Tunnels, Vercel, CI/CD, local LLMs |

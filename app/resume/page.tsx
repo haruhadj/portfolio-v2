@@ -5,7 +5,7 @@ import PrintButton from "./print-button";
 export const metadata: Metadata = {
   title: "Résumé — Michael Fernandez",
   description:
-    "Résumé of Michael Fernandez — full-stack developer. TypeScript, Next.js, PostgreSQL, Docker, Go.",
+    "Résumé of Michael Fernandez — full-stack developer. TypeScript, Next.js, PostgreSQL, Docker, C++.",
 };
 
 const EMAIL = "michaelfernandezskie@gmail.com";
@@ -16,7 +16,7 @@ const SITE = "https://haruhadj.org/portfolio";
 const skills = [
   {
     label: "Languages",
-    items: "TypeScript, JavaScript (ES6+), Python, Go, SQL",
+    items: "TypeScript, JavaScript (ES6+), Python, C++, SQL",
   },
   {
     label: "Web",

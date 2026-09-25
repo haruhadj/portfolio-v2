@@ -121,7 +121,7 @@ export default function GeneralResume() {
 
       <SectionTitle>Profile</SectionTitle>
       <p className="mt-3 text-sm leading-relaxed text-foreground/90">
-        Computer Science graduate with hands-on experience in software projects and Supply Chain operations within the Lens Warehouse department. Detail-oriented when working with inventory, records, documentation, and technical tools. Interested in entry-level technology support, operations, administrative support, and other roles where dependable digital skills are useful.
+        Computer Science graduate with hands-on experience in software projects and day-to-day business operations. Detail-oriented when working with data, records, documentation, and technical tools. Interested in entry-level technology support, operations, administrative support, and other roles where dependable digital skills are useful.
       </p>
 
       <SectionTitle>Internship Experience</SectionTitle>

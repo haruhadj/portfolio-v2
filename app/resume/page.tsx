@@ -53,7 +53,7 @@ const projects = [
     stack: "Next.js · PostgreSQL · Docker",
     bullets: [
       "Integrated two third-party OAuth providers (AniList and MyAnimeList), synchronizing watch progress to both simultaneously and reconciling state between their differing APIs.",
-      "Packaged with Docker Compose and deployed to ARM64 hardware like Raspberry Pi 5 server; config fully environment-driven.",
+      "Packaged with Docker Compose and deployed directly to my Raspberry Pi 5 server; config fully environment-driven.",
     ],
   },
   {
@@ -172,9 +172,10 @@ export default function Resume() {
 
       <SectionTitle>Summary</SectionTitle>
       <p className="mt-3 text-sm leading-relaxed text-foreground/90">
-        Full-stack developer: type-safe TypeScript from PostgreSQL schema to
-        Docker deployment, self-hosted on my own ARM64 infrastructure. BS
-        Computer Science (July 2026), seeking a junior developer role.
+        Full-stack developer building type-safe TypeScript applications,
+        PostgreSQL-backed systems, and n8n automations, deployed with Docker
+        directly on my Raspberry Pi 5. Focused on building reliable, practical
+        software and seeking a junior developer role.
       </p>
 
       <SectionTitle>Technical Skills</SectionTitle>

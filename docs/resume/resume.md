@@ -8,9 +8,10 @@ San Pedro, Laguna, Philippines · [michaelfernandezskie@gmail.com](mailto:michae
 
 ## Summary
 
-Full-stack developer: type-safe TypeScript from PostgreSQL schema to Docker
-deployment, self-hosted on my own ARM64 infrastructure. BS Computer Science
-(July 2026), seeking a junior developer role.
+Full-stack developer building type-safe TypeScript applications,
+PostgreSQL-backed systems, and n8n automations, deployed with Docker directly
+on my Raspberry Pi 5. Focused on building reliable, practical software and
+seeking a junior developer role.
 
 ---
 
@@ -21,7 +22,7 @@ deployment, self-hosted on my own ARM64 infrastructure. BS Computer Science
 | **Languages** | TypeScript, JavaScript (ES6+), Python, C++, SQL |
 | **Web** | Next.js, React, Node.js, Hono, Tailwind CSS, Zod, better-auth |
 | **Data** | PostgreSQL, SQLite, Drizzle ORM |
-| **Infrastructure** | Docker, Linux (ARM64), Cloudflare DNS & Tunnels, Vercel, CI/CD, local LLMs |
+| **Infrastructure** | Docker, Linux (Raspberry Pi 5), Cloudflare DNS & Tunnels, Vercel, CI/CD, local LLMs |
 
 ---
 
@@ -33,7 +34,7 @@ deployment, self-hosted on my own ARM64 infrastructure. BS Computer Science
 - Integrated **two third-party OAuth providers** (AniList and MyAnimeList),
   synchronizing watch progress to both simultaneously and reconciling state
   between their differing APIs.
-- Packaged with Docker Compose and deployed to **ARM64** hardware; config fully
+- Packaged with Docker Compose and deployed directly to my **Raspberry Pi 5**; config fully
   environment-driven.
 
 ### RSS2Mail — Multi-channel feed notifier

@@ -43,7 +43,7 @@ const processes = [
 const capabilityGroups = [
   { title: "Application", items: ["Next.js", "React", "TypeScript", "Tailwind CSS"] },
   { title: "Systems", items: ["Hono", "Zod", "PostgreSQL", "Drizzle ORM"] },
-  { title: "AI workflow", items: ["Claude Code", "Codex"] },
+  { title: "AI & automation", items: ["n8n Automations", "Claude", "Claude Code", "Codex", "AI Tools", "Prompt Engineering"] },
   { title: "Delivery", items: ["Docker", "Vercel", "Cloudflare", "CI/CD"] },
 ] as const;
 

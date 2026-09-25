@@ -26,7 +26,12 @@ const skills = [
   {
     label: "Infrastructure",
     items:
-      "Docker, Linux (ARM64), Cloudflare DNS & Tunnels, Vercel, CI/CD, local LLMs",
+      "Docker, Linux, Cloudflare DNS & Tunnels, Vercel, CI/CD, local LLMs",
+  },
+  {
+    label: "AI & Automation",
+    items:
+      "n8n automations, Claude, Claude Code, Codex, AI tools, prompt engineering",
   },
 ];
 

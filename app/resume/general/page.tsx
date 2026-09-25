@@ -26,6 +26,10 @@ const strengths = [
     label: "Technical support",
     items: "Linux systems, Docker, local infrastructure, hardware configuration, and deployment troubleshooting",
   },
+  {
+    label: "AI & automation",
+    items: "n8n automations, Claude, Claude Code, Codex, AI tools, and prompt engineering",
+  },
 ];
 
 const projects = [

@@ -8,6 +8,7 @@ import {
   SiGithubactions,
   SiHono,
   SiNextdotjs,
+  SiN8N,
   SiPostgresql,
   SiPython,
   SiReact,
@@ -17,7 +18,7 @@ import {
   SiVercel,
   SiZod,
 } from "react-icons/si";
-import { TbBrandOpenai } from "react-icons/tb";
+import { TbAi, TbBrandOpenai, TbPrompt } from "react-icons/tb";
 
 type Entry = { icon: IconType; color?: string };
 
@@ -41,9 +42,13 @@ const icons: Record<string, Entry> = {
   cloudflare: { icon: SiCloudflare, color: "#f38020" },
   docker: { icon: SiDocker, color: "#2496ed" },
   "ci/cd": { icon: SiGithubactions, color: "#2088ff" },
+  "n8n automations": { icon: SiN8N, color: "#ea4b71" },
+  claude: { icon: SiClaude, color: "#da7756" },
   "claude code": { icon: SiClaude, color: "#da7756" },
   // Codex uses OpenAI's knot mark as its product icon.
   codex: { icon: TbBrandOpenai },
+  "ai tools": { icon: TbAi, color: "#82aefc" },
+  "prompt engineering": { icon: TbPrompt, color: "#82aefc" },
   python: { icon: SiPython, color: "#ffd43b" },
 };
 

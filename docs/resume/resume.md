@@ -20,7 +20,7 @@ seeking a junior developer role.
 | | |
 | --- | --- |
 | **Languages** | TypeScript, JavaScript (ES6+), Python, C++, SQL |
-| **Web** | Next.js, React, Node.js, Hono, Tailwind CSS, Zod, better-auth |
+| **Web** | Next.js, React, Node.js, REST APIs, Hono, Tailwind CSS, Zod, better-auth |
 | **Data** | PostgreSQL, SQLite, Drizzle ORM |
 | **Infrastructure** | Docker, Linux (Raspberry Pi 5), Cloudflare DNS & Tunnels, Vercel, CI/CD, local LLMs |
 

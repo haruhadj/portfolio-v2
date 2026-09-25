@@ -20,7 +20,7 @@ const skills = [
   },
   {
     label: "Web",
-    items: "Next.js, React, Node.js, Hono, Tailwind CSS, Zod, better-auth",
+    items: "Next.js, React, Node.js, REST APIs, Hono, Tailwind CSS, Zod, better-auth",
   },
   { label: "Data", items: "PostgreSQL, SQLite, Drizzle ORM" },
   {

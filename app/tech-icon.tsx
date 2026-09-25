@@ -1,5 +1,5 @@
 import type { IconType } from "react-icons";
-import { LuFingerprint } from "react-icons/lu";
+import { LuBraces, LuFingerprint } from "react-icons/lu";
 import {
   SiClaude,
   SiCloudflare,
@@ -36,6 +36,7 @@ const icons: Record<string, Entry> = {
   supabase: { icon: SiSupabase, color: "#3ecf8e" },
   zod: { icon: SiZod, color: "#3e67b1" },
   "better-auth": { icon: LuFingerprint, color: "#ffab40" },
+  "rest apis": { icon: LuBraces, color: "#82aefc" },
   tailwind: { icon: SiTailwindcss, color: "#38bdf8" },
   "tailwind css": { icon: SiTailwindcss, color: "#38bdf8" },
   vercel: { icon: SiVercel },

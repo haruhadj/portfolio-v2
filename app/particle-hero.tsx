@@ -3,12 +3,16 @@
 import { useEffect, useRef } from "react";
 import { waitForBootDone } from "./boot-signal";
 
-const VIDEO_SRC = "/portfolio/bad-apple.mp4";
+const VIDEO_SRC = "/portfolio/bad-apple.d2adb797.mp4";
 const OFFSCREEN_RATIO = 16 / 9;
 const REPEL_RADIUS = 110;
 const SHOCK_RADIUS = 240;
 
 type Palette = { foreground: string; accent: string };
+type PerformanceNavigator = Navigator & {
+  deviceMemory?: number;
+  connection?: { saveData?: boolean };
+};
 type Particle = {
   x: number;
   y: number;
@@ -45,15 +49,28 @@ export default function ParticleHero({ className = "" }: { className?: string })
     const sampler = document.createElement("canvas");
     const sampleContext = sampler.getContext("2d", { willReadFrequently: true });
     if (!context || !sampleContext) return;
+    const supportsVideoFrameCallback = typeof video.requestVideoFrameCallback === "function";
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const performanceNavigator = navigator as PerformanceNavigator;
+    const constrainedDevice =
+      (performanceNavigator.hardwareConcurrency || 8) <= 4 ||
+      (performanceNavigator.deviceMemory || 8) <= 4 ||
+      performanceNavigator.connection?.saveData === true;
+    const frameInterval = 1000 / (constrainedDevice ? 30 : 60);
+    const minSampleWidth = constrainedDevice ? 96 : 112;
+    const maxSampleWidth = constrainedDevice ? 160 : 240;
     const pointer = { x: -10000, y: -10000 };
     let palette = readPalette();
     let raf = 0;
     let visible = true;
     let ready = false;
     let disposed = false;
+    let lastDrawTime = 0;
+    let videoFrameDirty = true;
+    let videoFrameCallback = 0;
+    let lastVideoTime = -1;
     let sampleWidth = 140;
     let sampleHeight = 79;
     let particles: Particle[] = [];
@@ -68,7 +85,7 @@ export default function ParticleHero({ className = "" }: { className?: string })
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
       // Denser frame sampling makes Bad Apple read as a detailed moving image
       // instead of a coarse dot pattern, without removing the physical motion.
-      sampleWidth = Math.max(120, Math.min(260, Math.round(bounds.width / 4.2)));
+      sampleWidth = Math.max(minSampleWidth, Math.min(maxSampleWidth, Math.round(bounds.width / 4.6)));
       sampleHeight = Math.round(sampleWidth / OFFSCREEN_RATIO);
       sampler.width = sampleWidth;
       sampler.height = sampleHeight;
@@ -92,22 +109,12 @@ export default function ParticleHero({ className = "" }: { className?: string })
         }
       }
       particles = next;
+      videoFrameDirty = true;
     };
 
-    const draw = () => {
-      raf = 0;
-      if (disposed || !visible || !ready) return;
-      const width = canvas.clientWidth;
-      const height = canvas.clientHeight;
-      if (!width || !height || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
-        if (!reduceMotion) raf = requestAnimationFrame(draw);
-        return;
-      }
-
+    const updateVideoFrame = () => {
       sampleContext.drawImage(video, 0, 0, sampleWidth, sampleHeight);
       const pixels = sampleContext.getImageData(0, 0, sampleWidth, sampleHeight).data;
-      context.clearRect(0, 0, width, height);
-
       const stride = 2;
       let particleIndex = 0;
       for (let y = 0; y < sampleHeight; y += stride) {
@@ -115,11 +122,33 @@ export default function ParticleHero({ className = "" }: { className?: string })
           const offset = (y * sampleWidth + x) * 4;
           const luminance = (pixels[offset] * 0.2126 + pixels[offset + 1] * 0.7152 + pixels[offset + 2] * 0.0722) / 255;
           const particle = particles[particleIndex++];
-          particle.tx = ((x + 0.5) / sampleWidth) * width;
-          particle.ty = ((y + 0.5) / sampleHeight) * height;
           particle.brightness = luminance;
         }
       }
+      videoFrameDirty = false;
+    };
+
+    const draw = (time: number) => {
+      raf = 0;
+      if (disposed || !visible || !ready) return;
+      if (time - lastDrawTime < frameInterval) {
+        if (!reduceMotion) raf = requestAnimationFrame(draw);
+        return;
+      }
+      lastDrawTime = time;
+      const width = canvas.clientWidth;
+      const height = canvas.clientHeight;
+      if (!width || !height || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) {
+        if (!reduceMotion) raf = requestAnimationFrame(draw);
+        return;
+      }
+
+      if (!supportsVideoFrameCallback && video.currentTime !== lastVideoTime) {
+        lastVideoTime = video.currentTime;
+        videoFrameDirty = true;
+      }
+      if (videoFrameDirty) updateVideoFrame();
+      context.clearRect(0, 0, width, height);
 
       for (const particle of particles) {
         // The original hero's spring + drag model, now chasing moving video targets.
@@ -155,9 +184,18 @@ export default function ParticleHero({ className = "" }: { className?: string })
     const queueDraw = () => {
       if (!raf && visible && ready) raf = requestAnimationFrame(draw);
     };
+    const onVideoFrame = () => {
+      if (disposed) return;
+      videoFrameDirty = true;
+      queueDraw();
+      videoFrameCallback = video.requestVideoFrameCallback(onVideoFrame);
+    };
     const begin = async () => {
       if (disposed) return;
       ready = true;
+      if (supportsVideoFrameCallback && !videoFrameCallback) {
+        videoFrameCallback = video.requestVideoFrameCallback(onVideoFrame);
+      }
       if (!reduceMotion) {
         try { await video.play(); } catch { /* A decoded first frame remains useful if autoplay is blocked. */ }
       }
@@ -228,19 +266,35 @@ export default function ParticleHero({ className = "" }: { className?: string })
       } else {
         cancelAnimationFrame(raf);
         raf = 0;
+        video.pause();
       }
     }, { threshold: 0.02 });
     intersectionObserver.observe(canvas);
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        video.pause();
+        cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (visible && !reduceMotion) {
+        video.play().catch(() => undefined);
+        queueDraw();
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
     const themeObserver = new MutationObserver(() => { palette = readPalette(); queueDraw(); });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     return () => {
       disposed = true;
       cancelAnimationFrame(raf);
+      if (videoFrameCallback && supportsVideoFrameCallback) {
+        video.cancelVideoFrameCallback(videoFrameCallback);
+      }
       video.pause();
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       themeObserver.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       video.removeEventListener("loadeddata", queueDraw);
       if (finePointer) {
         canvas.removeEventListener("pointermove", onPointerMove);

@@ -206,7 +206,7 @@ export default function Resume() {
         </p>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
           <Bullet>
-            Supported annual inventory and audit readiness through warehouse-label verification, barcode scanning, data encoding, stock organization, counts, and reconciliation.
+            Encoded supply chain data, assisted with troubleshooting and fixing software application issues, and edited videos related to supply chain workflows in the lens warehouse.
           </Bullet>
         </ul>
       </article>

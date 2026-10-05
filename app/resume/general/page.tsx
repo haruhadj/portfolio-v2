@@ -16,7 +16,7 @@ const SITE = "https://haruhadj.org/portfolio";
 const strengths = [
   {
     label: "Digital tools",
-    items: "Barcode scanning, data encoding, web applications, databases, and structured information",
+    items: "Data encoding, software applications, video editing, databases, and structured information",
   },
   {
     label: "Information work",
@@ -137,7 +137,7 @@ export default function GeneralResume() {
         </p>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
           <Bullet>
-            Supported annual inventory and audit readiness through warehouse-label verification, barcode scanning, data encoding, stock organization, counts, and reconciliation.
+            Encoded supply chain data, assisted with troubleshooting and fixing software application issues, and edited videos related to supply chain workflows in the lens warehouse.
           </Bullet>
         </ul>
       </article>

@@ -60,6 +60,36 @@ const projects = [
       "Integrated AniList and MyAnimeList OAuth and watch-progress sync; deployed the Dockerized app on a Raspberry Pi 5.",
     ],
   },
+  {
+    name: "Tsugi",
+    tagline: "Anime and manga recommendation sharing",
+    stack: "Next.js · Hono · PostgreSQL",
+    url: "https://github.com/haruhadj/tsugi",
+    label: "source",
+    bullets: [
+      "Built scored recommendation lists with public share links, rich social previews, OAuth sign-in, and a validated API.",
+    ],
+  },
+  {
+    name: "SkillForge",
+    tagline: "Educational game platform",
+    stack: "Next.js · Firebase · Socket.IO · Docker",
+    url: "https://github.com/haruhadj/skillforge",
+    label: "source",
+    bullets: [
+      "Unified 20+ learning games with shared score history and leaderboards; added multiplayer and deployed ARM64 containers to a Raspberry Pi 5.",
+    ],
+  },
+  {
+    name: "Secure QR Attendance",
+    tagline: "Classroom attendance system",
+    stack: "Next.js · PostgreSQL · Prisma",
+    url: "https://github.com/haruhadj/secure-qr-attendance",
+    label: "source",
+    bullets: [
+      "Built teacher-scanned QR attendance with scoped rosters, appeals, CSV import, and audit logs.",
+    ],
+  },
 ];
 
 function SectionTitle({ children }: { children: React.ReactNode }) {

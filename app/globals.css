@@ -108,9 +108,14 @@
   height: 1px;
   background: var(--orbit-accent);
 }
-.orbit-resume {
+.orbit-doc-links {
   grid-column: 3;
   justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.orbit-resume {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -397,7 +402,8 @@
 @media (max-width: 900px) {
   .orbit-header { top: 10px; right: 20px; left: 20px; grid-template-columns: 1fr auto; min-height: 54px; }
   .orbit-nav { display: none; }
-  .orbit-resume { grid-column: 2; min-height: 36px; }
+  .orbit-doc-links { grid-column: 2; }
+  .orbit-resume { min-height: 36px; }
   .orbit-hero { grid-template-columns: 1fr; align-content: center; padding: 104px 20px 44px; overflow: hidden; }
   .orbit-hero-copy { max-width: 620px; }
   .orbit-hero h1 { max-width: 10ch; font-size: clamp(3.1rem, 13.5vw, 5.4rem); }
@@ -1282,4 +1288,11 @@ a { color: inherit; text-decoration: none; }
   .resume-page .resume-h2 + * { margin-top: 4pt !important; }
   .resume-item, .resume-page h1, .resume-page h2, .resume-page h3 { break-inside: avoid; page-break-inside: avoid; }
   .resume-page h2, .resume-page h3 { break-after: avoid; page-break-after: avoid; }
+  .resume-page:not(.cv-page) { font-size: 9pt; }
+  .resume-page:not(.cv-page) h1 { font-size: 20pt; }
+  .resume-page:not(.cv-page) .text-sm { font-size: 9pt; }
+  .resume-page:not(.cv-page) .text-base { font-size: 10pt; }
+  .resume-page:not(.cv-page) .text-xs { font-size: 8pt; }
+  .resume-page:not(.cv-page) .resume-contact { line-height: 1.2; }
+  .cv-page .cv-project { break-inside: avoid; page-break-inside: avoid; }
 }

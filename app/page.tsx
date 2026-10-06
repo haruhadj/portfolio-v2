@@ -71,7 +71,10 @@ export default function Home() {
         <a href="#stack">Stack</a>
         <a href="#contact">Contact</a>
       </nav>
-      <Link href="/resume" className="orbit-resume">Résumé <FiArrowUpRight aria-hidden /></Link>
+      <div className="orbit-doc-links">
+        <Link href="/resume" className="orbit-resume">Résumé <FiArrowUpRight aria-hidden /></Link>
+        <Link href="/cv" className="orbit-resume">CV <FiArrowUpRight aria-hidden /></Link>
+      </div>
     </header>
     <main>
       <section className="orbit-hero" aria-labelledby="hero-title">
@@ -81,6 +84,7 @@ export default function Home() {
           <div className="orbit-actions">
             <a href="#work" className="orbit-button orbit-button-primary">View work</a>
             <Link href="/resume" className="orbit-button orbit-button-secondary"><FiFileText aria-hidden /> Read résumé</Link>
+            <Link href="/cv" className="orbit-button orbit-button-secondary"><FiFileText aria-hidden /> Read CV</Link>
           </div>
         </div>
         <div className="orbit-particle" role="img" aria-label="Interactive particle study driven by the Bad Apple video">

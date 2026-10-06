@@ -90,6 +90,9 @@ export default function GeneralResume() {
         <Link href="/resume" className="text-muted transition-colors hover:text-accent">
           technical resume
         </Link>
+        <Link href="/cv" className="text-muted transition-colors hover:text-accent">
+          detailed CV
+        </Link>
         <span className="flex-1" />
         <PrintButton />
       </div>

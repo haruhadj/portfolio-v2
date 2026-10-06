@@ -16,22 +16,16 @@ const SITE = "https://haruhadj.org/portfolio";
 const skills = [
   {
     label: "Languages",
-    items: "TypeScript, JavaScript (ES6+), Python, C++, SQL",
+    items: "TypeScript, JavaScript, Python, C++, SQL",
   },
   {
     label: "Web",
-    items: "Next.js, React, Node.js, REST APIs, Hono, Tailwind CSS, Zod, better-auth",
+    items: "Next.js, React, Node.js, Hono, REST APIs, Zod",
   },
-  { label: "Data", items: "PostgreSQL, SQLite, Drizzle ORM" },
+  { label: "Data", items: "PostgreSQL, SQLite, Drizzle ORM, Prisma" },
   {
-    label: "Infrastructure",
-    items:
-      "Docker, Linux, Cloudflare DNS & Tunnels, Vercel, CI/CD, local LLMs",
-  },
-  {
-    label: "AI & Automation",
-    items:
-      "n8n automations, Claude Code, Codex, AI tools, prompt engineering",
+    label: "Delivery",
+    items: "Docker, Linux, Vercel, Cloudflare, CI/CD, n8n",
   },
 ];
 
@@ -43,62 +37,28 @@ const projects = [
     url: "https://faculty-evaluation-system-zeta.vercel.app/",
     label: "faculty-evaluation-system-zeta.vercel.app",
     bullets: [
-      "Built a role-aware faculty evaluation platform for Our Lady of Assumption College, with administrator, faculty, and student workspaces protected by caller-scoped authentication.",
-      "Designed typed request contracts and PostgreSQL workflows for evaluation periods, assignments, immutable submissions, and report exports.",
+      "Built role-aware administrator, faculty, and student workflows with typed API contracts, PostgreSQL evaluation periods, immutable submissions, and report exports.",
+    ],
+  },
+  {
+    name: "Payroll System",
+    tagline: "School staff payroll",
+    stack: "Next.js · Hono · PostgreSQL · Drizzle ORM",
+    url: "https://github.com/haruhadj/payroll-system",
+    label: "source",
+    bullets: [
+      "Implemented role-based employee records, leave and loan workflows, and payroll calculations with Philippine government deductions and payslip generation.",
     ],
   },
   {
     name: "NekoStream",
     tagline: "Self-hosted anime tracker",
-    stack: "Next.js · PostgreSQL · Docker",
+    stack: "Next.js · SQLite · Docker",
+    url: "https://github.com/haruhadj/nekostream",
+    label: "source",
     bullets: [
-      "Integrated two third-party OAuth providers (AniList and MyAnimeList), synchronizing watch progress to both simultaneously and reconciling state between their differing APIs.",
-      "Packaged with Docker Compose and deployed directly to my Raspberry Pi 5 server; config fully environment-driven.",
+      "Integrated AniList and MyAnimeList OAuth and watch-progress sync; deployed the Dockerized app on a Raspberry Pi 5.",
     ],
-  },
-  {
-    name: "RSS2Mail",
-    tagline: "Multi-channel feed notifier",
-    stack: "TypeScript · Python · Docker",
-    bullets: [
-      "Delivers new items from any RSS/Atom feed through two channels: Gmail SMTP and Messenger.",
-      "Built a web dashboard for feed management, settings, and log inspection.",
-    ],
-  },
-  {
-    name: "Tsugi",
-    tagline: "Fast anime/manga recommendation sharing",
-    stack: "Next.js · Typscript · Supabase",
-    url: "https://tsugi.haruhadj.org/",
-    label: "tsugi.haruhadj.org",
-    bullets: [
-      "Fast anime/manga recommendation sharing. Sign in, pick one title or several, score them, and get a shareable link with a rich social preview — in under 10 seconds. Anyone can open that link; only creating needs an account.",
-    ],
-  },
-];
-
-const alsoShipped = [
-  {
-    name: "WebDAV Server",
-    desc: "Self-hosted file server; static Go binary in a ~20 MB Docker image.",
-  },
-  {
-    name: "SkillForge",
-    desc: "Educational game library.",
-    url: "https://skillforge.haruhadj.org/",
-    label: "skillforge.haruhadj.org",
-  },
-  {
-    name: "Secure QR Attendance",
-    desc: "QR-based classroom attendance.",
-    url: "https://secure-qr-attendance.vercel.app",
-    label: "secure-qr-attendance.vercel.app",
-  },
-  {
-    name: "Payroll System",
-    desc: "Employee records and payslip generation.",
-    url: "https://payroll-system-fawn.vercel.app",
-    label: "payroll-system-fawn.vercel.app",
   },
 ];
 
@@ -138,6 +98,9 @@ export default function Resume() {
         >
           general resume
         </Link>
+        <Link href="/cv" className="text-muted transition-colors hover:text-accent">
+          detailed CV
+        </Link>
         <span className="flex-1" />
         <PrintButton />
       </div>
@@ -172,10 +135,8 @@ export default function Resume() {
 
       <SectionTitle>Summary</SectionTitle>
       <p className="mt-3 text-sm leading-relaxed text-foreground/90">
-        Full-stack developer building type-safe TypeScript applications,
-        PostgreSQL-backed systems, and n8n automations, deployed with Docker
-        directly on my Raspberry Pi 5. Focused on building reliable, practical
-        software and seeking a junior developer role.
+        Full-stack developer building TypeScript applications, PostgreSQL-backed
+        systems, and self-hosted software. Seeking a junior developer role.
       </p>
 
       <SectionTitle>Technical Skills</SectionTitle>
@@ -206,10 +167,17 @@ export default function Resume() {
         </p>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
           <Bullet>
-            Encoded supply chain data, assisted with troubleshooting and fixing software application issues, and edited videos related to supply chain workflows in the lens warehouse.
+            Encoded warehouse data, helped troubleshoot software issues, and produced videos documenting supply chain workflows.
           </Bullet>
         </ul>
       </article>
+
+      <SectionTitle>Deployment & Infrastructure</SectionTitle>
+      <p className="resume-item mt-3 text-sm leading-relaxed text-foreground/90">
+        Configured Cloudflare DNS and custom domains for Vercel-hosted sites;
+        run Docker Compose services and Cloudflare Tunnel on a Raspberry Pi 5
+        for selected self-hosted applications.
+      </p>
 
       <SectionTitle>Projects</SectionTitle>
       <div className="mt-3 space-y-5">
@@ -243,26 +211,6 @@ export default function Resume() {
           </article>
         ))}
 
-        <article className="resume-item">
-          <h3 className="font-mono text-base font-bold text-foreground">
-            Also shipped
-          </h3>
-          <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
-            {alsoShipped.map((d) => (
-              <Bullet key={d.name}>
-                <strong className="font-semibold">{d.name}</strong> — {d.desc}
-                {d.url && (
-                  <>
-                    {" "}
-                    <a href={d.url} className="text-accent hover:underline">
-                      {d.label}
-                    </a>
-                  </>
-                )}
-              </Bullet>
-            ))}
-          </ul>
-        </article>
       </div>
 
       <SectionTitle>Education</SectionTitle>
@@ -272,13 +220,6 @@ export default function Resume() {
         </span>{" "}
         — BS Computer Science
         <span className="text-muted"> · 2022 – 2026 · Graduated July 2026</span>
-      </p>
-      <p className="resume-item mt-1.5 text-sm text-foreground/90">
-        <span className="font-mono font-bold text-foreground">
-          San Pedro Relocation Center National HS
-        </span>{" "}
-        — Senior High, TVL Broadband Installation
-        <span className="text-muted"> · Graduated 2020</span>
       </p>
     </div>
   );

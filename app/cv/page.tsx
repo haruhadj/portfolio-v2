@@ -121,7 +121,7 @@ export default function CV() {
 
       <SectionTitle>Profile</SectionTitle>
       <p className="mt-3 text-sm leading-relaxed text-foreground/90">
-        Computer Science graduate building full-stack TypeScript applications across product interfaces, APIs, data models, and deployment. Work includes academic systems, public web products, and services hosted on a Raspberry Pi 5. Seeking a junior software development role.
+        Computer Science graduate building full-stack TypeScript applications across product interfaces, APIs, data models, and deployment. I use AI tools and agentic coding workflows to build and improve apps and projects, while taking responsibility for design decisions, code quality, and delivery. My work includes academic systems, public web products, and services hosted on a Raspberry Pi 5. Seeking a junior software development role.
       </p>
 
       <SectionTitle>Technical Skills</SectionTitle>
@@ -129,6 +129,7 @@ export default function CV() {
         <div><dt className="inline font-mono font-semibold">Applications · </dt><dd className="inline">TypeScript, JavaScript, React, Next.js, Tailwind CSS, React Native</dd></div>
         <div><dt className="inline font-mono font-semibold">APIs and data · </dt><dd className="inline">Hono, REST APIs, Zod, PostgreSQL, SQLite, Drizzle ORM, Prisma, Supabase, Firebase</dd></div>
         <div><dt className="inline font-mono font-semibold">Delivery · </dt><dd className="inline">Docker, Linux, GitHub Actions, Vercel, Cloudflare, Raspberry Pi</dd></div>
+        <div><dt className="inline font-mono font-semibold">AI and automation · </dt><dd className="inline">Claude Code, Codex, agentic coding workflows, n8n</dd></div>
       </dl>
 
       <SectionTitle>Experience</SectionTitle>

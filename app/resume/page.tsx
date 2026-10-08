@@ -25,7 +25,11 @@ const skills = [
   { label: "Data", items: "PostgreSQL, SQLite, Drizzle ORM, Prisma" },
   {
     label: "Delivery",
-    items: "Docker, Linux, Vercel, Cloudflare, CI/CD, n8n",
+    items: "Docker, Linux, Vercel, Cloudflare, CI/CD",
+  },
+  {
+    label: "AI & automation",
+    items: "Claude Code, Codex, agentic coding workflows, n8n",
   },
 ];
 
@@ -166,7 +170,9 @@ export default function Resume() {
       <SectionTitle>Summary</SectionTitle>
       <p className="mt-3 text-sm leading-relaxed text-foreground/90">
         Full-stack developer building TypeScript applications, PostgreSQL-backed
-        systems, and self-hosted software. Seeking a junior developer role.
+        systems, and self-hosted software. I use AI tools and agentic coding
+        workflows to build and refine projects while taking responsibility for
+        the design, code, and delivery. Seeking a junior developer role.
       </p>
 
       <SectionTitle>Technical Skills</SectionTitle>

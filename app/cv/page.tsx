@@ -134,9 +134,9 @@ export default function CV() {
 
       <SectionTitle>Experience</SectionTitle>
       <article className="resume-item mt-3 text-sm text-foreground/90">
-        <h3 className="font-mono text-base font-bold text-foreground">Supply Chain Intern — Optodev Inc. (EssilorLuxottica)</h3>
+        <h3 className="font-mono text-base font-bold text-foreground">IT Assistant Intern — Optodev Inc. (EssilorLuxottica)</h3>
         <p className="mt-1 text-muted">Lens Warehouse Department · September 2025 – February 2026 · Biñan, Laguna</p>
-        <p className="mt-2 leading-relaxed">Encoded warehouse data, helped troubleshoot software application issues, and produced videos documenting supply chain workflows.</p>
+        <p className="mt-2 leading-relaxed">Supported IT tasks in the Lens Warehouse Department by encoding warehouse data, troubleshooting software application issues, and producing videos documenting supply chain workflows.</p>
       </article>
 
       <SectionTitle>Deployment & Infrastructure</SectionTitle>

@@ -193,7 +193,7 @@ export default function Resume() {
       <SectionTitle>Experience</SectionTitle>
       <article className="resume-item mt-3">
         <h3 className="font-mono text-base font-bold text-foreground">
-          Supply Chain Intern{" "}
+          IT Assistant Intern{" "}
           <span className="font-normal text-muted">
             — Optodev Inc. (EssilorLuxottica)
           </span>
@@ -203,7 +203,7 @@ export default function Resume() {
         </p>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
           <Bullet>
-            Encoded warehouse data, helped troubleshoot software issues, and produced videos documenting supply chain workflows.
+            Supported IT tasks in the Lens Warehouse Department by encoding warehouse data, troubleshooting software issues, and producing videos documenting supply chain workflows.
           </Bullet>
         </ul>
       </article>

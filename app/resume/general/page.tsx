@@ -127,10 +127,10 @@ export default function GeneralResume() {
         Computer Science graduate with hands-on experience in software projects and day-to-day business operations. Detail-oriented when working with data, records, documentation, and technical tools. Interested in entry-level technology support, operations, administrative support, and other roles where dependable digital skills are useful.
       </p>
 
-      <SectionTitle>Internship Experience</SectionTitle>
+      <SectionTitle>Work Experience</SectionTitle>
       <article className="resume-item mt-3">
         <h3 className="font-mono text-base font-bold text-foreground">
-          Supply Chain Intern{" "}
+          IT Assistant Intern{" "}
           <span className="font-normal text-muted">
             — Optodev Inc. (EssilorLuxottica)
           </span>
@@ -140,7 +140,7 @@ export default function GeneralResume() {
         </p>
         <ul className="mt-2 space-y-1.5 text-sm leading-relaxed text-foreground/90">
           <Bullet>
-            Encoded supply chain data, assisted with troubleshooting and fixing software application issues, and edited videos related to supply chain workflows in the lens warehouse.
+            Supported IT tasks in the Lens Warehouse Department by encoding supply chain data, troubleshooting and fixing software application issues, and editing videos related to supply chain workflows.
           </Bullet>
         </ul>
       </article>

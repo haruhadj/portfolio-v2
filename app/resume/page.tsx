@@ -193,7 +193,7 @@ export default function Resume() {
       <SectionTitle>Experience</SectionTitle>
       <article className="resume-item mt-3">
         <h3 className="font-mono text-base font-bold text-foreground">
-          IT Assistant Intern{" "}
+          IT Assistant{" "}
           <span className="font-normal text-muted">
             — Optodev Inc. (EssilorLuxottica)
           </span>
